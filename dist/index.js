@@ -1,15 +1,16 @@
 export { UndefinedBoolean, ComparisonType, ViewMode, KeyType, DATA_ID_ATTRIBUTE } from './CommonTypes';
 /* models */
 export { AbstractFieldOperations } from './model/AbstractFieldOperations';
-export { DefaultDataObject } from './model/DefaultDataObject';
-export { DefaultDataObjectStringifier } from './model/DefaultDataObjectStringifier';
-export { DataObjectPersistenceManager } from './model/DataObjectPersistenceManager';
-export { DefinitionNotFoundError } from './model/DefinitionNotFoundError';
-export { InvalidValueError } from './model/InvalidValueError';
 export { BasicFieldOperations } from './model/BasicFieldOperations';
 export { BasicObjectDefinitionFactory, FIELD_ModifiedOn, FIELD_CreatedOn, FIELD_ID, FIELD_CreatedBy, FIELD_CreatedBy_Desc, FIELD_CreatedOn_Desc, FIELD_ModifiedBy, FIELD_ModifiedBy_Desc, FIELD_ModifiedOn_Desc } from './model/BasicObjectDefinitionFactory';
 export { DataObjectController } from './model/DataObjectController';
+export { DataObjectFactory } from './model/DataObjectFactory';
+export { DataObjectPersistenceManager } from './model/DataObjectPersistenceManager';
 export { FieldType } from './model/DataObjectTypeDefs';
+export { DefaultDataObject } from './model/DefaultDataObject';
+export { DefaultDataObjectStringifier } from './model/DefaultDataObjectStringifier';
+export { DefinitionNotFoundError } from './model/DefinitionNotFoundError';
+export { InvalidValueError } from './model/InvalidValueError';
 export { ObjectDefinitionRegistry } from './model/ObjectDefinitionRegistry';
 /* network utils */
 export { ApiUtil } from './network/ApiUtil';

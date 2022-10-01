@@ -20,13 +20,6 @@ export {
 
 /* models */
 export {AbstractFieldOperations} from './model/AbstractFieldOperations';
-export {DataObject} from './model/DataObject';
-export {DefaultDataObject} from './model/DefaultDataObject';
-export {DefaultDataObjectStringifier} from './model/DefaultDataObjectStringifier';
-export {DataObjectPersistenceManager} from './model/DataObjectPersistenceManager';
-export {DefinitionNotFoundError} from './model/DefinitionNotFoundError';
-export {InvalidValueError} from './model/InvalidValueError';
-export {ValueOption, FieldValueOptionsListener, FieldValueOptions} from './model/CommonTypes';
 export {BasicFieldOperations} from './model/BasicFieldOperations';
 export {
     BasicObjectDefinitionFactory,
@@ -40,11 +33,19 @@ export {
     FIELD_ModifiedBy_Desc,
     FIELD_ModifiedOn_Desc
 } from './model/BasicObjectDefinitionFactory';
+export {ValueOption, FieldValueOptionsListener, FieldValueOptions} from './model/CommonTypes';
+export {DataObject} from './model/DataObject';
 export {DataObjectController} from './model/DataObjectController';
+export {DataObjectFactory} from './model/DataObjectFactory';
 export {DataObjectListener} from './model/DataObjectListener';
+export {DataObjectPersistenceManager} from './model/DataObjectPersistenceManager';
 export {
     FieldType, FieldValueGenerator, FieldDefinition, DataObjectDefinition, DerivedField
 } from './model/DataObjectTypeDefs';
+export {DefaultDataObject} from './model/DefaultDataObject';
+export {DefaultDataObjectStringifier} from './model/DefaultDataObjectStringifier';
+export {DefinitionNotFoundError} from './model/DefinitionNotFoundError';
+export {InvalidValueError} from './model/InvalidValueError';
 export {ObjectDefinitionRegistry} from './model/ObjectDefinitionRegistry';
 
 /* network utils */
