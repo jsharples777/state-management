@@ -32,5 +32,5 @@ export declare class BrowserUtil {
     allElementsFromPoint(x: number, y: number): Element[];
     isMobileDevice(): boolean;
 }
-declare const browserUtil: BrowserUtil;
+export declare const browserUtil: BrowserUtil;
 export default browserUtil;

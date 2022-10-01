@@ -50,5 +50,5 @@ export { ValidationHelperFunctions } from './ui/validation/ValidationHelperFunct
 export { truncateString, convertHexToNumber, convertSingleHexToNumber, isHexValueDark, copyObject } from './util/MiscFunctions';
 export { isSameMongo, isSame, isSameUsername, isSameRoom } from './util/EqualityFunctions';
 export { addDurations } from './util/DurationFunctions';
-export { BrowserUtil, getElementOffset } from './util/BrowserUtil';
+export { BrowserUtil, getElementOffset, browserUtil } from './util/BrowserUtil';
 //# sourceMappingURL=index.js.map

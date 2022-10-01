@@ -165,6 +165,6 @@ export class BrowserUtil {
 
 }
 
-const browserUtil = new BrowserUtil();
+export const browserUtil = new BrowserUtil();
 
 export default browserUtil;

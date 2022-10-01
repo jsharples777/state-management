@@ -63,4 +63,4 @@ export { ValidatableView } from './ui/validation/ValidatableView';
 export { truncateString, convertHexToNumber, convertSingleHexToNumber, isHexValueDark, copyObject } from './util/MiscFunctions';
 export { isSameMongo, isSame, isSameUsername, isSameRoom } from './util/EqualityFunctions';
 export { addDurations } from './util/DurationFunctions';
-export { BrowserUtil, ElementOffset, getElementOffset } from './util/BrowserUtil';
+export { BrowserUtil, ElementOffset, getElementOffset, browserUtil } from './util/BrowserUtil';
