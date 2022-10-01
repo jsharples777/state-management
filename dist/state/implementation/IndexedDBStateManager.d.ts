@@ -1,0 +1,42 @@
+import { IDBPDatabase, IDBPObjectStore } from "idb";
+import { StateManagerType, StateValue } from "../interface/StateManager";
+import { FilterItem } from "../../CommonTypes";
+import { AbstractAsynchronousStateManager } from "./AbstractAsynchronousStateManager";
+export declare type CollectionConfig = {
+    name: string;
+    keyField: string;
+};
+export declare class IndexedDBStateManager extends AbstractAsynchronousStateManager {
+    private static instance;
+    protected dbName: string;
+    protected collections: CollectionConfig[];
+    constructor();
+    static getInstance(): IndexedDBStateManager;
+    initialise(dbName: string, collections: CollectionConfig[]): Promise<void>;
+    _addNewNamedStateToStorage(state: StateValue): void;
+    _getState(name: string): StateValue;
+    _ensureStatePresent(name: string): void;
+    _replaceNamedStateInStorage(state: StateValue): void;
+    _addItemToState(name: string, stateObj: any, isPersisted?: boolean): void;
+    _removeItemFromState(name: string, stateObj: any, isPersisted: boolean): void;
+    _updateItemInState(name: string, stateObj: any, isPersisted: boolean): void;
+    _saveState(name: string, stateObj: any): void;
+    saveWithCollectionKey(key: string, saveData: any[], keyField?: string): Promise<void>;
+    addNewItemToCollection(key: string, item: any, keyField?: string): Promise<void>;
+    removeItemFromCollection(key: string, item: any, keyField?: string): Promise<void>;
+    updateItemInCollection(key: string, item: any, keyField?: string): Promise<void>;
+    setStateByName(name: string, stateObjectForName: any, informListeners: boolean): void;
+    getWithCollectionKey(key: string, keyField?: string): Promise<void>;
+    _findItemsInState(name: string, filters: FilterItem[]): any[];
+    getType(): StateManagerType;
+    _findItemInState(name: string, item: any): any;
+    protected getKeyFieldForKey(key: string): string;
+    protected checkForObjectStore(db: IDBPDatabase, key: string, keyField: string): Promise<void>;
+    protected saveItemsToCollection(objectStore: IDBPObjectStore, saveData: any[], keyField?: string): Promise<void>;
+    protected removeAllItemsFromCollectionKey(key: string, keyField?: string): Promise<void>;
+    protected callbackForRemoveItem(data: any, associatedStateName: string): Promise<void>;
+    protected callbackForUpdateItem(data: any, associatedStateName: string): Promise<void>;
+    protected callbackForGetItems(data: any, associatedStateName: string): void;
+    protected callbackForAddItem(data: any, associatedStateName: string): Promise<void>;
+    private openDatabase;
+}

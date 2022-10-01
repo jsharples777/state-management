@@ -1,0 +1,30 @@
+import { StateManagerType, StateValue } from "../interface/StateManager";
+import { StateChangeListener } from "../interface/StateChangeListener";
+import { AsynchronousStateManager } from "../interface/AsynchronousStateManager";
+import { AbstractStateManager } from "../implementation/AbstractStateManager";
+import { equalityFunction, FilterItem } from "../../CommonTypes";
+export declare class AsyncStateManagerWrapper extends AbstractStateManager implements StateChangeListener {
+    protected wrappedSM: AsynchronousStateManager;
+    protected topLevelSM: AbstractStateManager;
+    constructor(topLevelSM: AbstractStateManager, wrappedSM: AsynchronousStateManager, defaultEq: equalityFunction);
+    getAvailableStateNames(): string[];
+    getType(): StateManagerType;
+    _findItemsInState(name: string, filters: FilterItem[]): any[];
+    _findItemInState(name: string, stateObj: any): any;
+    _addItemToState(name: string, stateObj: any, isPersisted?: boolean): void;
+    _getState(name: string): StateValue;
+    _removeItemFromState(name: string, stateObj: any, isPersisted: boolean): void;
+    _updateItemInState(name: string, stateObj: any, isPersisted: boolean): void;
+    _ensureStatePresent(name: string): void;
+    _addNewNamedStateToStorage(state: StateValue): void;
+    _replaceNamedStateInStorage(state: StateValue): void;
+    _saveState(name: string, stateObj: any): void;
+    stateChangedItemRemoved(managerName: string, name: string, itemRemoved: any): void;
+    stateChangedItemUpdated(managerName: string, name: string, itemUpdated: any, itemNewValue: any): void;
+    stateChanged(managerName: string, name: string, newValue: any): void;
+    stateChangedItemAdded(managerName: string, name: string, itemAdded: any): void;
+    getListenerName(): string;
+    filterResults(managerName: string, name: string, filterResults: any): void;
+    foundResult(managerName: string, name: string, foundItem: any): void;
+    fireStateChangedForAllStates(): void;
+}

@@ -1,0 +1,33 @@
+import { TokenListener } from "./TokenListener";
+export declare class SecurityManager {
+    static HTTP_HEADER_FOR_TOKEN: string;
+    static DEFAULT_URL_FOR_TOKEN_REQUEST: string;
+    private static _instance;
+    private hash;
+    private logoutEl;
+    private requiresToken;
+    private headerName;
+    private token;
+    private hasTokenValue;
+    private listeners;
+    private tokenURL;
+    private constructor();
+    static getInstance(): SecurityManager;
+    getToken(): any | null;
+    hasToken(): boolean;
+    getTokenHeaderName(): string | null;
+    callsRequireToken(): boolean;
+    addListener(listener: TokenListener): void;
+    refreshToken(): void;
+    setRequiresToken(httpHeaderName?: string | null, tokenRequestURL?: string | null): void;
+    onDocumentLoaded(logoutElementId: string): void;
+    isLoggedIn(): boolean;
+    getLoggedInUserId(): string;
+    getLoggedInUsername(): string;
+    getCurrentUser(): string;
+    encryptString(value: string): string;
+    decryptString(value: string): string;
+    encryptObject(dataObj: any): string;
+    decryptObject(value: string): any;
+    protected callbackForToken(data: any, status: number): void;
+}

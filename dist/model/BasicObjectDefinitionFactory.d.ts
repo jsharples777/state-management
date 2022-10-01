@@ -1,0 +1,32 @@
+import { KeyType } from "../ui/ConfigurationTypes";
+import { DataObjectDefinition, DerivedField, FieldDefinition, FieldType } from "./DataObjectTypeDefs";
+import { FieldValueOptions } from "./CommonTypes";
+import { DisplayOrder } from "../CommonTypes";
+export declare const FIELD_ID: string;
+export declare const FIELD_CreatedBy: string;
+export declare const FIELD_ModifiedBy: string;
+export declare const FIELD_CreatedOn: string;
+export declare const FIELD_ModifiedOn: string;
+export declare const FIELD_CreatedBy_Desc: string;
+export declare const FIELD_ModifiedBy_Desc: string;
+export declare const FIELD_CreatedOn_Desc: string;
+export declare const FIELD_ModifiedOn_Desc: string;
+export declare class BasicObjectDefinitionFactory {
+    private static _instance;
+    private ops;
+    private constructor();
+    static getInstance(): BasicObjectDefinitionFactory;
+    generateStartingDisplayOrder(dataObjDef: DataObjectDefinition): DisplayOrder[];
+    createBasicObjectDefinition(id: string, displayName: string, hasDataId: boolean, dataIdIsUUID: boolean, createModifierFields?: boolean, idFieldName?: string): DataObjectDefinition;
+    addStringFieldToObjDefinition(objDef: DataObjectDefinition, id: string, displayName: string, type: FieldType, isMandatory?: boolean, description?: string | null, datasource?: FieldValueOptions | null): FieldDefinition;
+    addAnyFieldToObjDefinition(objDef: DataObjectDefinition, id: string, displayName: string): FieldDefinition;
+    addNumericFieldToObjDefinition(objDef: DataObjectDefinition, id: string, displayName: string, type: FieldType, isMandatory?: boolean, description?: string | null, datasource?: FieldValueOptions | null): FieldDefinition;
+    addDerivedFieldToObjDefinition(objDef: DataObjectDefinition, id: string, displayName: string, type: FieldType, keyType: KeyType, calculator: DerivedField, isMandatory?: boolean, description?: string | null, dataSource?: FieldValueOptions | null): FieldDefinition;
+    private addCreatedDateToArray;
+    private addModifiedDateToArray;
+    private addCreatedByToArray;
+    private addModifiedByToArray;
+    private addFieldToArray;
+    private addStringFieldToArray;
+    private addNumericFieldToArray;
+}

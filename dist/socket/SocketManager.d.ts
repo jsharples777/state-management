@@ -1,0 +1,36 @@
+import { SocketListener } from "./SocketListener";
+import { ChatReceiver } from "./ChatReceiver";
+import { InviteType, Priority, SimpleAttachment } from "./Types";
+export declare class SocketManager {
+    private static _instance;
+    protected listeners: SocketListener[];
+    protected socket: any | null;
+    protected chatReceivers: ChatReceiver[];
+    private isInitialised;
+    constructor();
+    static getInstance(): SocketManager;
+    addChatReceiver(receiver: ChatReceiver): void;
+    addListener(listener: SocketListener): void;
+    initialise(): void;
+    login(username: string): void;
+    logout(username: string): void;
+    joinChat(username: string, room: string, type: number): void;
+    leaveChat(username: string, room: string, type: number): void;
+    sendInvite(from: string, to: string, room: string, type?: InviteType, requiresAcceptDecline?: boolean, subject?: string, attachment?: any): void;
+    sendMessage(id: string, from: string, room: string, message: string, created: number, type: number, priority: Priority | undefined, simpleAttachment: SimpleAttachment, attachment?: any): void;
+    sendMessageReceived(id: string, receivedBy: string, room: string): void;
+    getUserList(): void;
+    sendDeclineInvite(room: string, from: string, type: number): void;
+    private callbackForMessage;
+    private callbackForLogin;
+    private callbackForUserList;
+    private callbackForLogout;
+    private callbackForJoinRoom;
+    private callbackForExitRoom;
+    private callbackForInvite;
+    private callbackForDeclineInvite;
+    private callbackForChat;
+    private callbackForChatReceived;
+    private callbackForQueue;
+    private callbackForData;
+}

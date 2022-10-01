@@ -1,0 +1,34 @@
+import { DataObject } from "./DataObject";
+import { DataObjectDefinition } from "./DataObjectTypeDefs";
+import { AbstractFieldOperations } from "./AbstractFieldOperations";
+export declare class DefaultDataObject implements DataObject {
+    private data;
+    private definition;
+    private fieldOps;
+    private bIsPersisted;
+    private bIsComplete;
+    private bHasChanged;
+    private bIsNew;
+    constructor(definition: DataObjectDefinition, data: any, fieldOps: AbstractFieldOperations);
+    isNew(): boolean;
+    setPersisted(persisted: boolean): void;
+    setComplete(): void;
+    hasChanged(): boolean;
+    toString(): string;
+    isEqual(secondDataObj: DataObject): boolean;
+    getDefinition(): DataObjectDefinition;
+    getDescription(): string;
+    getTypeName(): string;
+    getUniqueId(): string;
+    getValue(fieldName: string): string | null;
+    isComplete(): boolean;
+    isPersisted(): boolean;
+    setValue(fieldName: string, value: any): void;
+    setNew(): void;
+    setChanged(): void;
+    clone(): DataObject;
+    instance(): DataObject;
+    persist(): void;
+    delete(): void;
+    getData(): any;
+}

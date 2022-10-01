@@ -1,0 +1,1 @@
+{"version":3,"file":"DefinitionNotFoundError.js","sourceRoot":"","sources":["../../src/model/DefinitionNotFoundError.ts"],"names":[],"mappings":"AAAA,MAAM,OAAO,uBAAwB,SAAQ,KAAK;IAC9C,YAAY,GAAW;QACnB,KAAK,CAAC,GAAG,CAAC,CAAC;QAEX,MAAM,CAAC,cAAc,CAAC,IAAI,EAAE,uBAAuB,CAAC,SAAS,CAAC,CAAC;IACnE,CAAC;CACJ"}
