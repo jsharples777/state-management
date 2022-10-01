@@ -19,7 +19,7 @@ export { OfflineManager } from './network/OfflineManager';
 export { QueueListener } from './network/QueueListener';
 export { RequestType, queueType, JSONRequest, RequestCallBackFunction, SimpleRequest, CallbackFunction } from './network/Types';
 export { NotificationManager } from './notification/NotificationManager';
-export { NotificationContent, NotificationListener, NotificationAttachmentRenderer, NotificationAttachment, NotificationType, NotificationSource, NotificationCounts } from './notification/NotificationTypes';
+export { NotificationContent, NotificationListener, NotificationAttachmentRenderer, NotificationAttachment, NotificationType, NotificationSource, NotificationCounts, FrameworkNotificationSources } from './notification/NotificationTypes';
 export { SecurityManager } from './security/SecurityManager';
 export { ChatEmitter } from './socket/ChatEmitter';
 export { ChatEventListener } from './socket/ChatEventListener';

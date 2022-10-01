@@ -57,7 +57,7 @@ export {
 
 /* notifications */
 export {NotificationManager} from './notification/NotificationManager';
-export {NotificationContent,NotificationListener,NotificationAttachmentRenderer,NotificationAttachment,NotificationType,NotificationSource,NotificationCounts} from './notification/NotificationTypes';
+export {NotificationContent,NotificationListener,NotificationAttachmentRenderer,NotificationAttachment,NotificationType,NotificationSource,NotificationCounts,FrameworkNotificationSources} from './notification/NotificationTypes';
 
 /* Security Manager */
 export {SecurityManager} from './security/SecurityManager';
