@@ -35,7 +35,10 @@ export {
     DocumentLoaded,
     FieldRuntimeConfig,
     ElementLocation,
-    UndefinedBoolean
+    UndefinedBoolean,
+    BasicKeyAction,
+    FieldLabelPosition,
+    FieldRuntimeGroup
 } from './CommonTypes';
 
 /* models */
@@ -172,4 +175,3 @@ export {
 export {isSameMongo, isSame, isSameUsername, isSameRoom} from './util/EqualityFunctions';
 export {addDurations} from './util/DurationFunctions';
 export {BrowserUtil, ElementOffset, getElementOffset} from './util/BrowserUtil';
-

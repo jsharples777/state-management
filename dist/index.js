@@ -1,4 +1,4 @@
-export { ComparisonType, ViewMode, UIFieldType, defaultGetValue, DATA_ID_ATTRIBUTE, DRAGGABLE_TYPE, DRAGGABLE_KEY_ID, DRAGGABLE_FROM, ItemEventType, ElementLocation, UndefinedBoolean } from './CommonTypes';
+export { ComparisonType, ViewMode, UIFieldType, defaultGetValue, DATA_ID_ATTRIBUTE, DRAGGABLE_TYPE, DRAGGABLE_KEY_ID, DRAGGABLE_FROM, ItemEventType, ElementLocation, UndefinedBoolean, BasicKeyAction, FieldLabelPosition } from './CommonTypes';
 /* models */
 export { AbstractFieldOperations } from './model/AbstractFieldOperations';
 export { DefaultDataObject } from './model/DefaultDataObject';
