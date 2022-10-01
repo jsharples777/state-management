@@ -1,8 +1,7 @@
-import {KeyType} from "../ui/ConfigurationTypes";
 import {BasicFieldOperations} from "./BasicFieldOperations";
 import {DataObjectDefinition, DerivedField, FieldDefinition, FieldType} from "./DataObjectTypeDefs";
 import {FieldValueOptions} from "./CommonTypes";
-import {DisplayOrder} from "../CommonTypes";
+import {DisplayOrder, KeyType} from "../CommonTypes";
 import {DefaultDataObjectStringifier} from "./DefaultDataObjectStringifier";
 
 export const FIELD_ID: string = 'id';

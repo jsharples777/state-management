@@ -1,7 +1,6 @@
-import { KeyType } from "../ui/ConfigurationTypes";
 import { DataObjectDefinition, DerivedField, FieldDefinition, FieldType } from "./DataObjectTypeDefs";
 import { FieldValueOptions } from "./CommonTypes";
-import { DisplayOrder } from "../CommonTypes";
+import { DisplayOrder, KeyType } from "../CommonTypes";
 export declare const FIELD_ID: string;
 export declare const FIELD_CreatedBy: string;
 export declare const FIELD_ModifiedBy: string;

@@ -2,10 +2,9 @@ import moment from "moment";
 import {v4} from 'uuid';
 import {FieldDefinition, FieldType} from "./DataObjectTypeDefs";
 import debug from 'debug';
-import {KeyType} from "../ui/ConfigurationTypes";
 import {SecurityManager} from "../security/SecurityManager";
 import {Field} from "../ui/field/Field";
-import {ValidationResponse} from "../CommonTypes";
+import {KeyType, ValidationResponse} from "../CommonTypes";
 import {AbstractFieldOperations} from "./AbstractFieldOperations";
 
 const flogger = debug('basic-field-operations-formatter');

@@ -1,6 +1,6 @@
-import { KeyType } from "../ui/ConfigurationTypes";
 import { BasicFieldOperations } from "./BasicFieldOperations";
 import { FieldType } from "./DataObjectTypeDefs";
+import { KeyType } from "../CommonTypes";
 import { DefaultDataObjectStringifier } from "./DefaultDataObjectStringifier";
 export const FIELD_ID = 'id';
 export const FIELD_CreatedBy = 'createdBy';

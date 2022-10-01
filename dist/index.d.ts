@@ -1,4 +1,4 @@
-export { ComparisonType, ExtraAction, FilterItem, equalityFunction, evaluatorFunction, ViewMode, DisplayOrder, ValidationResponse, FieldValidator, FieldFormatter, FieldRenderer, FieldEditor, ConditionalField, UIFieldType, FieldLabel, DescriptionText, rendererFn, defaultGetValue, FieldUIConfig, FieldGroup, AttributeFieldMapItem, DATA_ID_ATTRIBUTE, Attribute, ModifierClasses, IconClasses, BasicButtonElement, BasicElement, DRAGGABLE_TYPE, DRAGGABLE_KEY_ID, DRAGGABLE_FROM, Droppable, Draggable, ItemEventType, DocumentLoaded, FieldRuntimeConfig, ElementLocation, UndefinedBoolean, BasicKeyAction, FieldLabelPosition, FieldRuntimeGroup } from './CommonTypes';
+export { ComparisonType, FilterItem, equalityFunction, evaluatorFunction, ViewMode, DisplayOrder, ValidationResponse, FieldValidator, FieldFormatter, FieldRenderer, FieldEditor, ConditionalField, DATA_ID_ATTRIBUTE, Attribute, DocumentLoaded, UndefinedBoolean, } from './CommonTypes';
 export { AbstractFieldOperations } from './model/AbstractFieldOperations';
 export { DataObject } from './model/DataObject';
 export { DefaultDataObject } from './model/DefaultDataObject';
@@ -51,7 +51,6 @@ export { StateContextDelegate } from './state/delegate/StateContextDelegate';
 export { DefaultStateContextSupplier } from './state/helper/DefaultStateContextSupplier';
 export { StateTimerListener } from './state/interface/StateTimerListener';
 export { StateTimingManager } from './state/helper/StateTimingManager';
-export { ContentDetail, Modifier, KeyType, ViewDOMConfig, CollectionViewDOMConfig, SidebarLocation, SidebarPrefs, SidebarViewConfig, ViewPrefs, RowPosition, CarouselDOMConfig, TabularViewDOMConfig, TabDOMConfig, ActionType, SCREEN_WIDTH_LARGE, SCREEN_WIDTH_SMALL, SCREEN_WIDTH_MEDIUM, DetailViewRuntimeConfig, TableViewRuntimeConfig, ListViewRuntimeConfig, CollectionViewSorter, CollectionViewSorterDirection, } from './ui/ConfigurationTypes';
 export { MatchLogicType, CollectionFilter, ConditionalMatchFilter, ContainsFilter, ExactMatchFilter } from './filter/Types';
 export { CollectionFilterProcessor } from './filter/CollectionFilterProcessor';
 export { Field } from './ui/field/Field';

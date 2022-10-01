@@ -1,7 +1,7 @@
-import {KeyType} from "../ui/ConfigurationTypes";
 import {FieldValueOptions} from "./CommonTypes";
 import {ValidationRule} from "../ui/validation/ValidationTypeDefs";
 import {DataObject} from "./DataObject";
+import {KeyType} from '../CommonTypes';
 
 
 export enum FieldType {

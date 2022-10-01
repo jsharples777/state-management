@@ -1,4 +1,4 @@
-export { ComparisonType, ViewMode, UIFieldType, defaultGetValue, DATA_ID_ATTRIBUTE, DRAGGABLE_TYPE, DRAGGABLE_KEY_ID, DRAGGABLE_FROM, ItemEventType, ElementLocation, UndefinedBoolean, BasicKeyAction, FieldLabelPosition } from './CommonTypes';
+export { ComparisonType, ViewMode, DATA_ID_ATTRIBUTE, UndefinedBoolean, } from './CommonTypes';
 /* models */
 export { AbstractFieldOperations } from './model/AbstractFieldOperations';
 export { DefaultDataObject } from './model/DefaultDataObject';
@@ -42,7 +42,6 @@ export { StateManagerType } from './state/interface/StateManager';
 export { StateContextDelegate } from './state/delegate/StateContextDelegate';
 export { DefaultStateContextSupplier } from './state/helper/DefaultStateContextSupplier';
 export { StateTimingManager } from './state/helper/StateTimingManager';
-export { Modifier, KeyType, SidebarLocation, RowPosition, ActionType, SCREEN_WIDTH_LARGE, SCREEN_WIDTH_SMALL, SCREEN_WIDTH_MEDIUM, CollectionViewSorterDirection, } from './ui/ConfigurationTypes';
 export { MatchLogicType } from './filter/Types';
 export { CollectionFilterProcessor } from './filter/CollectionFilterProcessor';
 export { ConditionResponse, MultipleConditionLogic } from './ui/validation/ValidationTypeDefs';
