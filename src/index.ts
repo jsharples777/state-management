@@ -79,8 +79,6 @@ export {UnreadMessageCountListener} from './socket/UnreadMessageCountListener';
 /* state management */
 export {AbstractStateManager, EqualityFnForName} from './state/implementation/AbstractStateManager';
 export {AggregateStateManager} from './state/implementation/AggregateStateManager';
-export {AsynchronousStateManager} from './state/interface/AsynchronousStateManager';
-export {AsyncStateManagerWrapper} from './state/helper/AsyncStateManagerWrapper';
 export {BrowserStorageStateManager} from './state/implementation/BrowserStorageStateManager';
 export {
     EncryptedBrowserStorageStateManager
@@ -88,16 +86,23 @@ export {
 export {EncryptedIndexedDBStateManager} from './state/implementation/EncryptedIndexedDBStateManager';
 export {GraphQLApiStateManager, QLConfig} from './state/implementation/GraphQLApiStateManager';
 export {IndexedDBStateManager, CollectionConfig} from './state/implementation/IndexedDBStateManager';
-export {PersistentLocalCache} from './state/helper/PersistentLocalCache';
 export {RESTApiStateManager} from './state/implementation/RESTApiStateManager';
 export {MemoryBufferStateManager} from './state/implementation/MemoryBufferStateManager';
+
+export {AsynchronousStateManager} from './state/interface/AsynchronousStateManager';
 export {StateChangeListener} from './state/interface/StateChangeListener';
 export {StateManager, StateManagerType,StateEventType, StateValue,stateListeners} from './state/interface/StateManager';
 export {StateContextListener} from './state/interface/StateContextListener';
 export {StateManagerContext, StateContextSupplier} from './state/interface/StateContextSupplier';
-export {StateContextDelegate} from './state/delegate/StateContextDelegate';
-export {DefaultStateContextSupplier} from './state/helper/DefaultStateContextSupplier';
 export {StateTimerListener} from './state/interface/StateTimerListener';
+
+export {StateContextDelegate} from './state/delegate/StateContextDelegate';
+export {StateChangedDelegate} from './state/delegate/StateChangedDelegate';
+
+export {AsyncStateManagerWrapper} from './state/helper/AsyncStateManagerWrapper';
+export {GlobalContextSupplier} from './state/helper/GlobalContextSupplier';
+export {PersistentLocalCache} from './state/helper/PersistentLocalCache';
+export {DefaultStateContextSupplier} from './state/helper/DefaultStateContextSupplier';
 export {StateTimingManager} from './state/helper/StateTimingManager';
 
 
