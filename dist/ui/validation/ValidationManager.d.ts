@@ -1,21 +1,10 @@
-import { ConditionResponse, ValidationCondition, ValidationRule } from "./ValidationTypeDefs";
+import { ConditionResponse, RuleCheck, ValidationCondition, ValidationRule } from "./ValidationTypeDefs";
 import { Field } from "../field/Field";
 import { FieldDefinition } from "../../model/DataObjectTypeDefs";
 import { FieldListener } from "../field/FieldListener";
 import { ComparisonType, ViewMode } from "../../CommonTypes";
 import { ViewFieldValidator } from "./ViewFieldValidator";
 import { ValidatableView } from "./ValidatableView";
-export declare type RuleCheck = {
-    ruleFailed: boolean;
-    message?: string;
-    index?: number;
-};
-export declare type RuleResponse = {
-    field: Field;
-    ruleFailed: boolean;
-    response: ConditionResponse;
-    message?: string;
-};
 declare type _Condition = {
     sourceField?: Field;
     comparison: ComparisonType;

@@ -1,7 +1,7 @@
 import { Field } from "../field/Field";
 import { FieldType } from "../../model/DataObjectTypeDefs";
 import { ComparisonType } from "../../CommonTypes";
-import { RuleCheck } from "./ValidationManager";
+import { RuleCheck } from "./ValidationTypeDefs";
 export declare class ValidationHelperFunctions {
     private static _instance;
     constructor();

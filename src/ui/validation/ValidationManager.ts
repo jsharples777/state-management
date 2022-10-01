@@ -1,4 +1,10 @@
-import {ConditionResponse, MultipleConditionLogic, ValidationCondition, ValidationRule} from "./ValidationTypeDefs";
+import {
+    ConditionResponse,
+    MultipleConditionLogic, RuleCheck,
+    RuleResponse,
+    ValidationCondition,
+    ValidationRule
+} from "./ValidationTypeDefs";
 import {Field} from "../field/Field";
 import debug from 'debug';
 import {FieldDefinition, FieldType} from "../../model/DataObjectTypeDefs";
@@ -14,18 +20,7 @@ const erLogger = debug('validation-manager-execute-rule');
 const merLogger = debug('validation-manager-multiple-condition-rule-results');
 
 
-export type RuleCheck = {
-    ruleFailed: boolean,
-    message?: string,
-    index?: number
-}
 
-export type RuleResponse = {
-    field: Field,
-    ruleFailed: boolean,
-    response: ConditionResponse,
-    message?: string
-}
 
 type _Condition = {
     sourceField?: Field,

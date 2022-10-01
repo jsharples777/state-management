@@ -1,4 +1,5 @@
 import { ComparisonType, ViewMode } from "../../CommonTypes";
+import { Field } from "../field/Field";
 export declare enum ConditionResponse {
     show = 0,
     hide = 1,
@@ -23,4 +24,15 @@ export declare type ValidationRule = {
     response: ConditionResponse;
     multipleConditionLogic?: MultipleConditionLogic;
     conditions?: ValidationCondition[];
+};
+export declare type RuleCheck = {
+    ruleFailed: boolean;
+    message?: string;
+    index?: number;
+};
+export declare type RuleResponse = {
+    field: Field;
+    ruleFailed: boolean;
+    response: ConditionResponse;
+    message?: string;
 };

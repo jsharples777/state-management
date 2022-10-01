@@ -1,8 +1,9 @@
 import {Field} from "../field/Field";
 import {FieldType} from "../../model/DataObjectTypeDefs";
 import {ComparisonType} from "../../CommonTypes";
-import {RuleCheck} from "./ValidationManager";
+
 import debug from 'debug';
+import {RuleCheck} from "./ValidationTypeDefs";
 
 const logger = debug('validation-helper-functions');
 

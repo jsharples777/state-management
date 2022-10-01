@@ -1,6 +1,5 @@
 import { FieldDefinition } from "../../model/DataObjectTypeDefs";
-import { ConditionResponse } from "./ValidationTypeDefs";
-import { RuleCheck } from "./ValidationManager";
+import { ConditionResponse, RuleCheck } from "./ValidationTypeDefs";
 import { ValidatableView } from "./ValidatableView";
 import { ViewMode } from "../../CommonTypes";
 export interface ViewFieldValidator {

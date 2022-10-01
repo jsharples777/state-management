@@ -55,7 +55,7 @@ export { MatchLogicType, CollectionFilter, ConditionalMatchFilter, ContainsFilte
 export { CollectionFilterProcessor } from './filter/CollectionFilterProcessor';
 export { Field } from './ui/field/Field';
 export { FieldListener } from './ui/field/FieldListener';
-export { ConditionResponse, ValidationCondition, ValidationRule, MultipleConditionLogic } from './ui/validation/ValidationTypeDefs';
+export { RuleCheck, RuleResponse, ConditionResponse, ValidationCondition, ValidationRule, MultipleConditionLogic } from './ui/validation/ValidationTypeDefs';
 export { ValidationManager } from './ui/validation/ValidationManager';
 export { ValidationHelperFunctions } from './ui/validation/ValidationHelperFunctions';
 export { ViewFieldValidator } from './ui/validation/ViewFieldValidator';
