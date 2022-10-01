@@ -45,7 +45,7 @@ export { PersistentLocalCache } from './state/helper/PersistentLocalCache';
 export { RESTApiStateManager } from './state/implementation/RESTApiStateManager';
 export { MemoryBufferStateManager } from './state/implementation/MemoryBufferStateManager';
 export { StateChangeListener } from './state/interface/StateChangeListener';
-export { StateManager, StateManagerType } from './state/interface/StateManager';
+export { StateManager, StateManagerType, StateEventType, StateValue, stateListeners } from './state/interface/StateManager';
 export { StateContextListener } from './state/interface/StateContextListener';
 export { StateManagerContext, StateContextSupplier } from './state/interface/StateContextSupplier';
 export { StateContextDelegate } from './state/delegate/StateContextDelegate';

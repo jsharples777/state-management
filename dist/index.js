@@ -39,7 +39,7 @@ export { IndexedDBStateManager } from './state/implementation/IndexedDBStateMana
 export { PersistentLocalCache } from './state/helper/PersistentLocalCache';
 export { RESTApiStateManager } from './state/implementation/RESTApiStateManager';
 export { MemoryBufferStateManager } from './state/implementation/MemoryBufferStateManager';
-export { StateManagerType } from './state/interface/StateManager';
+export { StateManagerType, StateEventType } from './state/interface/StateManager';
 export { StateContextDelegate } from './state/delegate/StateContextDelegate';
 export { DefaultStateContextSupplier } from './state/helper/DefaultStateContextSupplier';
 export { StateTimingManager } from './state/helper/StateTimingManager';
