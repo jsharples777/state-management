@@ -1,4 +1,4 @@
-export { ComparisonType, FilterItem, equalityFunction, evaluatorFunction, ViewMode, DisplayOrder, ValidationResponse, FieldValidator, FieldFormatter, FieldRenderer, FieldEditor, ConditionalField, DATA_ID_ATTRIBUTE, Attribute, DocumentLoaded, UndefinedBoolean, } from './CommonTypes';
+export { UndefinedBoolean, ComparisonType, FilterItem, equalityFunction, evaluatorFunction, DisplayOrder, ValidationResponse, ViewMode, KeyType, FieldEditor, FieldFormatter, FieldRenderer, FieldValidator, ConditionalField, DATA_ID_ATTRIBUTE, Attribute, DocumentLoaded } from './CommonTypes';
 export { AbstractFieldOperations } from './model/AbstractFieldOperations';
 export { DataObject } from './model/DataObject';
 export { DefaultDataObject } from './model/DefaultDataObject';

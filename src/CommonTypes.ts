@@ -29,14 +29,6 @@ export type FilterItem = {
 export type equalityFunction = (item1: any, item2: any) => boolean;
 export type evaluatorFunction = (item: any, filter: FilterItem) => boolean;
 
-// export enum ViewMode {
-//     unset = -1,
-//     create,
-//     update,
-//     displayOnly,
-//     any
-// }
-
 export type DisplayOrder = {
     fieldId: string,
     displayOrder: number

@@ -1,4 +1,4 @@
-export { ComparisonType, ViewMode, DATA_ID_ATTRIBUTE, UndefinedBoolean, } from './CommonTypes';
+export { UndefinedBoolean, ComparisonType, ViewMode, KeyType, DATA_ID_ATTRIBUTE } from './CommonTypes';
 /* models */
 export { AbstractFieldOperations } from './model/AbstractFieldOperations';
 export { DefaultDataObject } from './model/DefaultDataObject';

@@ -1,20 +1,21 @@
 export {
+    UndefinedBoolean,
     ComparisonType,
     FilterItem,
     equalityFunction,
     evaluatorFunction,
-    ViewMode,
     DisplayOrder,
     ValidationResponse,
-    FieldValidator,
+    ViewMode,
+    KeyType,
+    FieldEditor,
     FieldFormatter,
     FieldRenderer,
-    FieldEditor,
+    FieldValidator,
     ConditionalField,
     DATA_ID_ATTRIBUTE,
     Attribute,
-    DocumentLoaded,
-    UndefinedBoolean,
+    DocumentLoaded
 } from './CommonTypes';
 
 /* models */
