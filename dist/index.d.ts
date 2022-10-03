@@ -51,7 +51,7 @@ export { StateContextDelegate } from './state/delegate/StateContextDelegate';
 export { StateChangedDelegate } from './state/delegate/StateChangedDelegate';
 export { AsyncStateManagerWrapper } from './state/helper/AsyncStateManagerWrapper';
 export { GlobalContextSupplier } from './state/helper/GlobalContextSupplier';
-export { PersistentLocalCache } from './state/helper/PersistentLocalCache';
+export { PersistentLocalCache } from './state/cache/PersistentLocalCache';
 export { DefaultStateContextSupplier } from './state/helper/DefaultStateContextSupplier';
 export { StateTimingManager } from './state/helper/StateTimingManager';
 export { MatchLogicType, CollectionFilter, ConditionalMatchFilter, ContainsFilter, ExactMatchFilter } from './filter/Types';
