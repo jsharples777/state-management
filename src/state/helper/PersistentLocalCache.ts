@@ -250,7 +250,7 @@ export class PersistentLocalCache implements StateChangeListener, SocketListener
         });
         this.lastRefresh.addChangeListenerForName(PersistentLocalCache.COLLECTION_NAME_LAST_REFRESHED, this);
         await this.cache.initialise(dbName, collections);
-        const userRefreshDBName = SecurityManager.getInstance().getLoggedInUsername().trim() + '.' + dbName;
+        const userRefreshDBName = SecurityManager.getInstance().getLoggedInUsername().trim() + '.' + dbName + '.lastRefresh';
         await this.lastRefresh.initialise(userRefreshDBName,refreshCollections);
         await this.encryptedCache.initialise(dbName, encryptedCollections);
         // load the last refresh dates

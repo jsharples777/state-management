@@ -215,7 +215,7 @@ export class PersistentLocalCache {
             });
             this.lastRefresh.addChangeListenerForName(PersistentLocalCache.COLLECTION_NAME_LAST_REFRESHED, this);
             yield this.cache.initialise(dbName, collections);
-            const userRefreshDBName = SecurityManager.getInstance().getLoggedInUsername().trim() + '.' + dbName;
+            const userRefreshDBName = SecurityManager.getInstance().getLoggedInUsername().trim() + '.' + dbName + '.lastRefresh';
             yield this.lastRefresh.initialise(userRefreshDBName, refreshCollections);
             yield this.encryptedCache.initialise(dbName, encryptedCollections);
             // load the last refresh dates
