@@ -29,6 +29,7 @@ export class PersistentLocalCache {
         this.lastUpdatedDates = [];
         this.isLoadingLastUpdateDates = false;
         this.cache = new IndexedDBStateManager();
+        this.lastRefresh = new IndexedDBStateManager();
         this.encryptedCache = new EncryptedIndexedDBStateManager();
         this.callbackForLastUpdatedDates = this.callbackForLastUpdatedDates.bind(this);
         this.loadLastUpdatedDates();
@@ -76,14 +77,14 @@ export class PersistentLocalCache {
                                 const lastRefreshPlusInterval = parseInt(moment(lastRefresh, 'YYYYMMDDHHmmss').add(config.refreshInterval, 'seconds').format('YYYYMMDDHHmmss'));
                                 if (lastRefreshPlusInterval < nowAsNumber) {
                                     logger(`Refresh interval expired, should refresh`);
-                                    localStorage.removeItem(this.getLocalStorageKey(config.name));
+                                    localStorage.removeItem(this.getLocalStorageKey(config.lsName));
                                     config.lastRefreshed = nowAsNumber;
                                     this.refreshDates[config.name] = nowAsNumber;
                                     config.shouldRefresh = true;
                                 }
                                 if (lastUpdated > lastRefresh) {
                                     logger(`Last updated at server is after last refresh`);
-                                    localStorage.removeItem(this.getLocalStorageKey(config.name));
+                                    localStorage.removeItem(this.getLocalStorageKey(config.lsName));
                                     config.lastRefreshed = nowAsNumber;
                                     this.refreshDates[config.name] = nowAsNumber;
                                     config.shouldRefresh = true;
@@ -91,7 +92,7 @@ export class PersistentLocalCache {
                             }
                             else {
                                 logger(`No refresh, setting to now`);
-                                localStorage.removeItem(this.getLocalStorageKey(config.name));
+                                localStorage.removeItem(this.getLocalStorageKey(config.lsName));
                                 config.lastRefreshed = nowAsNumber;
                                 this.refreshDates[config.name] = nowAsNumber;
                                 config.shouldRefresh = true;
@@ -102,7 +103,7 @@ export class PersistentLocalCache {
                         logger(`No refresh dates, setting to now`);
                         this.refreshDates['_id'] = v4();
                         this.cacheConfig.forEach((config) => {
-                            localStorage.removeItem(this.getLocalStorageKey(config.name));
+                            localStorage.removeItem(this.getLocalStorageKey(config.lsName));
                             config.lastRefreshed = nowAsNumber;
                             this.refreshDates[config.name] = nowAsNumber;
                             config.shouldRefresh = true;
@@ -110,7 +111,7 @@ export class PersistentLocalCache {
                     }
                     logger(`New refresh dates are:`);
                     logger(this.refreshDates);
-                    this.cache.updateItemInCollection(PersistentLocalCache.COLLECTION_NAME_LAST_REFRESHED, this.refreshDates, "_id");
+                    this.lastRefresh.updateItemInCollection(PersistentLocalCache.COLLECTION_NAME_LAST_REFRESHED, this.refreshDates, "_id");
                     this.hasLoadedRefreshDates = true;
                     this.loadCache();
                 }
@@ -130,11 +131,11 @@ export class PersistentLocalCache {
                 const foundIndex = this.cacheConfig.findIndex((config) => config.name === name);
                 if (foundIndex >= 0) {
                     const config = this.cacheConfig[foundIndex];
-                    const previouslyLoaded = localStorage.getItem(this.getLocalStorageKey(config.name));
+                    const previouslyLoaded = localStorage.getItem(this.getLocalStorageKey(config.lsName));
                     if (config.shouldRefresh || (!(previouslyLoaded))) {
                         config.shouldRefresh = false;
                         config.lastRefreshed = parseInt(moment().format('YYYYMMDDHHmmss'));
-                        localStorage.setItem(this.getLocalStorageKey(config.name), `${config.lastRefreshed}`);
+                        localStorage.setItem(this.getLocalStorageKey(config.lsName), `${config.lastRefreshed}`);
                         this.refreshDates[config.name] = config.lastRefreshed;
                         logger(`Collection ${config.name} received from remote source - loading into cache`);
                         if (config.encrypt) {
@@ -145,7 +146,7 @@ export class PersistentLocalCache {
                         }
                         logger(`Updating last refreshed for ${config.name} to now`);
                         logger(this.refreshDates);
-                        this.cache.updateItemInCollection(PersistentLocalCache.COLLECTION_NAME_LAST_REFRESHED, this.refreshDates, "_id");
+                        this.lastRefresh.updateItemInCollection(PersistentLocalCache.COLLECTION_NAME_LAST_REFRESHED, this.refreshDates, "_id");
                     }
                     else {
                         logger(`Already received ${config.name} from cache`);
@@ -158,19 +159,30 @@ export class PersistentLocalCache {
         return 'Persistent Cache';
     }
     addCollectionToCacheConfiguration(collectionName, keyField, source, refreshInSeconds, encrypt = false) {
-        this.cacheConfig.push({
-            name: collectionName,
-            keyField: keyField,
-            source: source,
-            refreshInterval: refreshInSeconds,
-            lastRefreshed: 0,
-            shouldRefresh: false,
-            encrypt: encrypt
-        });
         if (!encrypt) {
+            this.cacheConfig.push({
+                name: collectionName,
+                lsName: collectionName,
+                keyField: keyField,
+                source: source,
+                refreshInterval: refreshInSeconds,
+                lastRefreshed: 0,
+                shouldRefresh: false,
+                encrypt: encrypt
+            });
             this.cache.addChangeListenerForName(collectionName, this);
         }
         else {
+            this.cacheConfig.push({
+                name: collectionName,
+                lsName: SecurityManager.getInstance().getLoggedInUsername().trim() + '.' + collectionName,
+                keyField: keyField,
+                source: source,
+                refreshInterval: refreshInSeconds,
+                lastRefreshed: 0,
+                shouldRefresh: false,
+                encrypt: encrypt
+            });
             this.encryptedCache.addChangeListenerForName(collectionName, this);
         }
         source.addChangeListenerForName(collectionName, this);
@@ -181,6 +193,7 @@ export class PersistentLocalCache {
             this.dbName = dbName;
             const collections = [];
             const encryptedCollections = [];
+            const refreshCollections = [];
             this.cacheConfig.forEach((config) => {
                 if (config.encrypt) {
                     encryptedCollections.push({
@@ -196,16 +209,17 @@ export class PersistentLocalCache {
                 }
             });
             // add the collection for the refresh dates
-            collections.push({
+            refreshCollections.push({
                 name: PersistentLocalCache.COLLECTION_NAME_LAST_REFRESHED,
                 keyField: '_id'
             });
-            this.cache.addChangeListenerForName(PersistentLocalCache.COLLECTION_NAME_LAST_REFRESHED, this);
-            const result = yield this.cache.initialise(dbName, collections);
-            if (encryptedCollections.length > 0)
-                yield this.encryptedCache.initialise(dbName, encryptedCollections);
+            this.lastRefresh.addChangeListenerForName(PersistentLocalCache.COLLECTION_NAME_LAST_REFRESHED, this);
+            yield this.cache.initialise(dbName, collections);
+            const userRefreshDBName = SecurityManager.getInstance().getLoggedInUsername().trim() + '.' + dbName;
+            yield this.lastRefresh.initialise(userRefreshDBName, refreshCollections);
+            yield this.encryptedCache.initialise(dbName, encryptedCollections);
             // load the last refresh dates
-            this.cache.getStateByName(PersistentLocalCache.COLLECTION_NAME_LAST_REFRESHED);
+            this.lastRefresh.getStateByName(PersistentLocalCache.COLLECTION_NAME_LAST_REFRESHED);
         });
     }
     isReadyToLoadCache() {
@@ -238,7 +252,7 @@ export class PersistentLocalCache {
     handleMessage(message) {
     }
     getCurrentUser() {
-        return SecurityManager.getInstance().getLoggedInUserId();
+        return SecurityManager.getInstance().getLoggedInUserId().trim();
     }
     handleDataChangedByAnotherUser(message) {
         const stateObj = message.data;
@@ -251,7 +265,7 @@ export class PersistentLocalCache {
                 const nowAsNumber = parseInt(moment().format('YYYYMMDDHHmmss'));
                 this.refreshDates[config.name] = nowAsNumber;
                 logger(`Received data message for ${config.name} with message type ${message.type}`);
-                this.cache.updateItemInCollection(PersistentLocalCache.COLLECTION_NAME_LAST_REFRESHED, this.refreshDates, "_id").then(() => {
+                this.lastRefresh.updateItemInCollection(PersistentLocalCache.COLLECTION_NAME_LAST_REFRESHED, this.refreshDates, "_id").then(() => {
                     switch (message.type) {
                         case DataChangeType.create: {
                             if (config.encrypt) {
@@ -310,7 +324,7 @@ export class PersistentLocalCache {
             return;
         this.cacheConfig.forEach((config) => {
             // check to see if needs to be refreshed
-            const cacheLoaded = localStorage.getItem(this.getLocalStorageKey(config.name));
+            const cacheLoaded = localStorage.getItem(this.getLocalStorageKey(config.lsName));
             if (cacheLoaded) {
                 logger(`${config.name} has been previously loaded, needs refresh? ${config.shouldRefresh}`);
                 if (config.shouldRefresh) {

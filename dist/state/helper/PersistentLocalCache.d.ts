@@ -7,6 +7,7 @@ export declare class PersistentLocalCache implements StateChangeListener, Socket
     private static COLLECTION_NAME_LAST_REFRESHED;
     private static COLLECTION_NAME_PREFIX;
     private static DEFAULT_URL_FOR_LAST_UPDATED_DATES;
+    private lastRefresh;
     private cache;
     private encryptedCache;
     private cacheConfig;
