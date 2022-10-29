@@ -33,6 +33,11 @@ export class SubCache {
             this.cache = new IndexedDBStateManager();
         }
     }
+    removeAllCaches() {
+        this.cacheConfig.forEach((config) => {
+            this.cache.setStateByName(config.name, [], true);
+        });
+    }
     stateChanged(managerName, name, newValue) {
         switch (managerName) {
             case 'indexeddb': {

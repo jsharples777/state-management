@@ -118,6 +118,20 @@ export class SecurityManager {
         logger(`Logged in user is ${result}`);
         return result;
     }
+    isUserActive() {
+        let result = false;
+        try {
+            // @ts-ignore
+            if (loggedInUser) {
+                // @ts-ignore
+                result = loggedInUser.isCurrent;
+            }
+        }
+        catch (error) {
+        }
+        logger(`Logged in user is active ${result}`);
+        return result;
+    }
     getCurrentUser() {
         return this.getLoggedInUserId();
     }

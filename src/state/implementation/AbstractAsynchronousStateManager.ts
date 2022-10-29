@@ -18,6 +18,7 @@ export abstract class AbstractAsynchronousStateManager implements AsynchronousSt
     protected managerName: string;
     protected stateBuffers: StateValue[];
     protected initialised: boolean = false;
+    protected id:string;
 
     public constructor(id: string, managerName: string) {
         this.delegate = new StateChangedDelegate(managerName);
@@ -26,6 +27,7 @@ export abstract class AbstractAsynchronousStateManager implements AsynchronousSt
         this.bIsRunInProgress = [];
         this.managerName = managerName;
         this.stateBuffers = [];
+        this.id = id;
     }
 
     abstract _addItemToState(name: string, stateObj: any, isPersisted: boolean): void;

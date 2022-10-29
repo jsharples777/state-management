@@ -13,6 +13,7 @@ export class AbstractAsynchronousStateManager {
         this.bIsRunInProgress = [];
         this.managerName = managerName;
         this.stateBuffers = [];
+        this.id = id;
     }
     addChangeListenerForName(name, listener) {
         this.delegate.addChangeListenerForName(name, listener);

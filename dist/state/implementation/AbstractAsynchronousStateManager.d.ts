@@ -13,6 +13,7 @@ export declare abstract class AbstractAsynchronousStateManager implements Asynch
     protected managerName: string;
     protected stateBuffers: StateValue[];
     protected initialised: boolean;
+    protected id: string;
     constructor(id: string, managerName: string);
     abstract _addItemToState(name: string, stateObj: any, isPersisted: boolean): void;
     abstract _addNewNamedStateToStorage(state: StateValue): void;

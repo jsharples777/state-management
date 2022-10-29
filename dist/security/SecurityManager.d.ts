@@ -24,6 +24,7 @@ export declare class SecurityManager {
     isLoggedIn(): boolean;
     getLoggedInUserId(): string;
     getLoggedInUsername(): string;
+    isUserActive(): boolean;
     getCurrentUser(): string;
     encryptString(value: string): string;
     decryptString(value: string): string;

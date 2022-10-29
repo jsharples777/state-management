@@ -29,4 +29,5 @@ export declare class PersistentLocalCache {
     initialiseAfterCollectionsAddedToCacheConfiguration(dbName: string, applicationState: StateManager): Promise<void>;
     onDocumentLoaded(): void;
     protected callbackForLastUpdatedDates(data: any, status: number): void;
+    removeAllCaches(): void;
 }

@@ -129,5 +129,10 @@ export class PersistentLocalCache {
         }
     }
 
+    public removeAllCaches() {
+        if (this.cache) this.cache.removeAllCaches();
+        if (this.encryptedCache) this.encryptedCache.removeAllCaches();
+    }
+
 
 }

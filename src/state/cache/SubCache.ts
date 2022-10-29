@@ -35,6 +35,12 @@ export class SubCache implements StateChangeListener, SocketListener {
         }
     }
 
+    public removeAllCaches(): void {
+        this.cacheConfig.forEach((config) => {
+            this.cache.setStateByName(config.name,[],true);
+        });
+    }
+
     stateChanged(managerName: string, name: string, newValue: any): void {
         switch (managerName) {
             case 'indexeddb': {

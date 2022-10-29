@@ -114,6 +114,12 @@ export class PersistentLocalCache {
                 this.encryptedCache.setLastUpdatedDates(data);
         }
     }
+    removeAllCaches() {
+        if (this.cache)
+            this.cache.removeAllCaches();
+        if (this.encryptedCache)
+            this.encryptedCache.removeAllCaches();
+    }
 }
 PersistentLocalCache.COLLECTION_NAME_LAST_REFRESHED = 'persistent-local-cache-last-refresh';
 PersistentLocalCache.COLLECTION_NAME_PREFIX = 'persistent-local-cache-';

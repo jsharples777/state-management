@@ -140,6 +140,20 @@ export class SecurityManager {
         return result;
     }
 
+    public isUserActive():boolean {
+        let result = false;
+        try {
+            // @ts-ignore
+            if (loggedInUser) {
+                // @ts-ignore
+                result = loggedInUser.isCurrent;
+            }
+        } catch (error) {
+        }
+        logger(`Logged in user is active ${result}`);
+        return result;
+    }
+
     public getCurrentUser(): string {
         return this.getLoggedInUserId();
     }
