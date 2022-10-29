@@ -348,6 +348,10 @@ export class IndexedDBStateManager extends AbstractAsynchronousStateManager {
         return result;
     }
 
+    public async deleteDatabase() {
+        await indexedDB.deleteDatabase(this.dbName);
+    }
+
 
 }
 

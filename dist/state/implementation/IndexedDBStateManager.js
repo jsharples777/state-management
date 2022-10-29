@@ -331,5 +331,10 @@ export class IndexedDBStateManager extends AbstractAsynchronousStateManager {
             return result;
         });
     }
+    deleteDatabase() {
+        return __awaiter(this, void 0, void 0, function* () {
+            yield indexedDB.deleteDatabase(this.dbName);
+        });
+    }
 }
 //# sourceMappingURL=IndexedDBStateManager.js.map

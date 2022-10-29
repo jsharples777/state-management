@@ -39,4 +39,5 @@ export declare class IndexedDBStateManager extends AbstractAsynchronousStateMana
     protected callbackForGetItems(data: any, associatedStateName: string): void;
     protected callbackForAddItem(data: any, associatedStateName: string): Promise<void>;
     private openDatabase;
+    deleteDatabase(): Promise<void>;
 }

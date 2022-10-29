@@ -38,6 +38,9 @@ export class SubCache {
             this.cache.setStateByName(config.name, [], true);
         });
     }
+    deleteCache() {
+        this.cache.deleteDatabase();
+    }
     stateChanged(managerName, name, newValue) {
         switch (managerName) {
             case 'indexeddb': {

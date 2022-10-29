@@ -30,4 +30,5 @@ export declare class PersistentLocalCache {
     onDocumentLoaded(): void;
     protected callbackForLastUpdatedDates(data: any, status: number): void;
     removeAllCaches(): void;
+    deleteAllCaches(): void;
 }

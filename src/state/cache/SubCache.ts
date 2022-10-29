@@ -41,6 +41,10 @@ export class SubCache implements StateChangeListener, SocketListener {
         });
     }
 
+    public deleteCache():void {
+        this.cache.deleteDatabase();
+    }
+
     stateChanged(managerName: string, name: string, newValue: any): void {
         switch (managerName) {
             case 'indexeddb': {

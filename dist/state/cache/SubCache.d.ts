@@ -14,6 +14,7 @@ export declare class SubCache implements StateChangeListener, SocketListener {
     private lastUpdatedDates;
     constructor(applicationState: StateManager, dbName: string, shouldEncrypt: boolean);
     removeAllCaches(): void;
+    deleteCache(): void;
     stateChanged(managerName: string, name: string, newValue: any): void;
     getListenerName(): string;
     addCollectionToCacheConfiguration(collectionName: string, keyField: string, source: AsynchronousStateManager, refreshInSeconds: number): void;
