@@ -205,6 +205,12 @@ export class RESTApiStateManager extends AbstractAsynchronousStateManager {
                 callbackId: this.functionIdFindItem,
                 associatedStateName: name
             };
+            if (this.contextDelegate) {
+                jsonRequest.context = this.contextDelegate.getContextForApi();
+            }
+            else {
+                jsonRequest.context = GlobalContextSupplier.getInstance().getGlobalContextForApi();
+            }
             DownloadManager.getInstance().addApiRequest(jsonRequest, true);
         }
         else {

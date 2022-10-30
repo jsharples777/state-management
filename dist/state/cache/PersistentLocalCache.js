@@ -8,7 +8,6 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 import debug from 'debug';
-import { SecurityManager } from "../../security/SecurityManager";
 import { ApiUtil } from "../../network/ApiUtil";
 import { ObjectDefinitionRegistry } from "../../model/ObjectDefinitionRegistry";
 import { SubCache } from "./SubCache";
@@ -80,8 +79,7 @@ export class PersistentLocalCache {
                 this.cache.initialise();
             }
             if (this.encryptedCacheConfig.length > 0) {
-                const encryptedDBName = SecurityManager.getInstance().getLoggedInUsername() + '.' + dbName;
-                this.encryptedCache = new SubCache(applicationState, encryptedDBName, true);
+                this.encryptedCache = new SubCache(applicationState, dbName, true);
                 this.encryptedCacheConfig.forEach((config) => {
                     var _a;
                     (_a = this.encryptedCache) === null || _a === void 0 ? void 0 : _a.addCollectionToCacheConfiguration(config.name, config.keyField, config.source, config.refreshInterval);

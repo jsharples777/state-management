@@ -97,8 +97,7 @@ export class PersistentLocalCache {
             this.cache.initialise();
         }
         if (this.encryptedCacheConfig.length > 0) {
-            const encryptedDBName = SecurityManager.getInstance().getLoggedInUsername() + '.' + dbName;
-            this.encryptedCache = new SubCache(applicationState, encryptedDBName, true);
+            this.encryptedCache = new SubCache(applicationState, dbName, true);
             this.encryptedCacheConfig.forEach((config) => {
                 this.encryptedCache?.addCollectionToCacheConfiguration(config.name, config.keyField, config.source, config.refreshInterval);
             });
