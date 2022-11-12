@@ -1,4 +1,4 @@
-import {JSONRequest} from "./Types";
+import {JSONRequest, RequestType} from "./Types";
 import {Poller} from "./Poller";
 import {IndexedDBStateManager} from "../state/implementation/IndexedDBStateManager";
 import {v4} from "uuid";
@@ -69,6 +69,8 @@ export class OfflineManager implements StateChangeListener {
     }
 
     public addOfflineRequest(jsonRequest: JSONRequest) {
+        if (jsonRequest.type === RequestType.GET) return;
+
         if (!Poller.getInstance().isPolling()) {
             Poller.getInstance().startPolling(this.serverBackOnline);
             const notification:NotificationContent = {
