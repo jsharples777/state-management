@@ -6,6 +6,7 @@ export declare class ApiUtil {
     postFetchJSON(url: string, query: any): Promise<any>;
     apiFetchJSONWithPost(request: ManagerRequest): void;
     apiFetchJSONWithGet(request: ManagerRequest): void;
+    apiFetchJSONWithPatch(request: ManagerRequest): void;
     apiFetchJSONWithDelete(request: ManagerRequest): void;
     apiFetchJSONWithPut(request: ManagerRequest): void;
     simplePOSTJSON(request: SimpleRequest): void;

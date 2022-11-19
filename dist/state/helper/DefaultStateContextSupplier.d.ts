@@ -12,6 +12,7 @@ export declare class DefaultStateContextSupplier implements StateContextSupplier
     constructor(name: string, supplyingStateManager: StateManager, equalityFn: equalityFunction, contextConfig: StateManagerContext);
     addListener(listener: StateContextListener): void;
     foundResult(managerName: string, name: string, foundItem: any): void;
+    itemNotModified(managerName: string, name: string, item: any): void;
     getListenerName(): string;
     filterResults(managerName: string, name: string, filterResults: any): void;
     stateChanged(managerName: string, name: string, newValue: any): void;

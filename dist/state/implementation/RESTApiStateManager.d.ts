@@ -12,6 +12,8 @@ export declare type ApiConfig = {
     update: boolean;
     destroy: boolean;
     find: boolean;
+    lastModified: boolean;
+    lastModifiedField?: string;
 };
 export declare class RESTApiStateManager extends AbstractAsynchronousStateManager {
     private static _instance;
@@ -20,12 +22,14 @@ export declare class RESTApiStateManager extends AbstractAsynchronousStateManage
     private static FUNCTION_ID_UPDATE_ITEM;
     private static FUNCTION_ID_GET_ITEMS;
     private static FUNCTION_ID_FIND_ITEM;
+    private static FUNCTION_ID_GET_LAST_MODIFIED_ITEM;
     protected configuration: ApiConfig[];
     private functionIdAddItem;
     private functionIdRemoveItem;
     private functionIdUpdateItem;
     private functionIdGetItems;
     private functionIdFindItem;
+    private functionIdLastModifiedItem;
     constructor(id: string);
     static getInstance(): RESTApiStateManager;
     initialise(configs: ApiConfig[]): void;
@@ -40,11 +44,14 @@ export declare class RESTApiStateManager extends AbstractAsynchronousStateManage
     _removeItemFromState(name: string, stateObj: any, isPersisted: boolean): void;
     _updateItemInState(name: string, stateObj: any, isPersisted: boolean): void;
     _findItemsInState(name: string, filters: FilterItem[]): any[];
+    private _getLastModifiedForItem;
+    private _findItemInStateNoCheck;
     _findItemInState(name: string, item: any): any;
     protected getConfigurationForStateName(name: string): ApiConfig;
     private callbackForRemoveItem;
     private callbackForUpdateItem;
     private callbackForGetItems;
     private callbackForFindItem;
+    private callbackForModifiedItem;
     private callbackForAddItem;
 }

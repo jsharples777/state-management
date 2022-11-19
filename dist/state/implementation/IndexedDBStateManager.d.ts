@@ -7,6 +7,7 @@ export declare type CollectionConfig = {
     keyField: string;
 };
 export declare class IndexedDBStateManager extends AbstractAsynchronousStateManager {
+    static NAME: string;
     private static instance;
     protected dbName: string;
     protected collections: CollectionConfig[];

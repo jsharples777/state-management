@@ -15,7 +15,7 @@ const logger = debug('indexeddb-ts');
 const loggerInit = debug('indexeddb-ts:init');
 export class IndexedDBStateManager extends AbstractAsynchronousStateManager {
     constructor() {
-        super('indexeddb', 'indexeddb');
+        super(IndexedDBStateManager.NAME, IndexedDBStateManager.NAME);
         this.dbName = 'default';
         this.collections = [];
         this.callbackForAddItem = this.callbackForAddItem.bind(this);
@@ -337,4 +337,5 @@ export class IndexedDBStateManager extends AbstractAsynchronousStateManager {
         });
     }
 }
+IndexedDBStateManager.NAME = 'indexeddb';
 //# sourceMappingURL=IndexedDBStateManager.js.map

@@ -33,6 +33,9 @@ export class AbstractStateManager {
     receivedFoundItem(name, foundItem) {
         this.delegate.informChangeListenersForStateWithName(name, foundItem, StateEventType.FindItem, null);
     }
+    receivedItemNotModified(name, item) {
+        this.delegate.informChangeListenersForStateWithName(name, item, StateEventType.ItemNotModified, null);
+    }
     suppressEvents() {
         this.delegate.suppressEvents();
     }

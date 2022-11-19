@@ -226,6 +226,10 @@ export class DownloadManager implements TokenListener {
                 ApiUtil.getInstance().apiFetchJSONWithPut(item);
                 break;
             }
+            case RequestType.PATCH: {
+                ApiUtil.getInstance().apiFetchJSONWithPatch(item);
+                break;
+            }
         }
     }
 }

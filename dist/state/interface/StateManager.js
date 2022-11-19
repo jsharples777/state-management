@@ -6,6 +6,7 @@ export var StateEventType;
     StateEventType[StateEventType["StateChanged"] = 3] = "StateChanged";
     StateEventType[StateEventType["FilterResults"] = 4] = "FilterResults";
     StateEventType[StateEventType["FindItem"] = 5] = "FindItem";
+    StateEventType[StateEventType["ItemNotModified"] = 6] = "ItemNotModified";
 })(StateEventType || (StateEventType = {}));
 export var StateManagerType;
 (function (StateManagerType) {

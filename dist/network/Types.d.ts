@@ -2,7 +2,8 @@ export declare enum RequestType {
     POST = 0,
     GET = 1,
     PUT = 2,
-    DELETE = 3
+    DELETE = 3,
+    PATCH = 4
 }
 export declare enum queueType {
     PRIORITY = 0,

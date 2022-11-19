@@ -55,6 +55,8 @@ export class OfflineManager {
     addOfflineRequest(jsonRequest) {
         if (jsonRequest.type === RequestType.GET)
             return;
+        if (jsonRequest.type === RequestType.PATCH)
+            return;
         if (!Poller.getInstance().isPolling()) {
             Poller.getInstance().startPolling(this.serverBackOnline);
             const notification = {
@@ -109,6 +111,8 @@ export class OfflineManager {
     filterResults(managerName, name, filterResults) {
     }
     foundResult(managerName, name, foundItem) {
+    }
+    itemNotModified(managerName, name, item) {
     }
 }
 OfflineManager.LOCALSTORAGE_KEY_USE_ENCRYPTION = 'offline-manager.use-encryption';

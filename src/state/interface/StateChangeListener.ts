@@ -11,5 +11,7 @@ export interface StateChangeListener {
 
     foundResult(managerName: string, name: string, foundItem: any): void;
 
+    itemNotModified(managerName: string, name: string, item: any):void;
+
     getListenerName(): string;
 }

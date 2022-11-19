@@ -196,6 +196,8 @@ export class SubCache {
     // eslint-disable-next-line @typescript-eslint/no-empty-function
     foundResult(managerName, name, foundItem) {
     }
+    itemNotModified(managerName, name, item) {
+    }
     // eslint-disable-next-line @typescript-eslint/no-empty-function
     handleMessage(message) {
     }

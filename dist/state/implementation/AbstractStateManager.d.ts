@@ -21,6 +21,7 @@ export declare abstract class AbstractStateManager implements StateManager {
     stateContextChanged(newContext: any): void;
     receivedFilterResults(name: string, filterResults: any): void;
     receivedFoundItem(name: string, foundItem: any): void;
+    receivedItemNotModified(name: string, item: any): void;
     suppressEvents(): void;
     emitEvents(): void;
     dontForceSavesOnAddRemoveUpdate(): void;

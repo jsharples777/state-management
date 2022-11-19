@@ -38,6 +38,9 @@ export class DefaultStateContextSupplier implements StateContextSupplier, StateC
         }
     }
 
+    itemNotModified(managerName: string, name: string, item: any) {
+    }
+
     getListenerName(): string {
         return "";
     }

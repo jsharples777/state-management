@@ -18,7 +18,8 @@ export declare enum StateEventType {
     ItemDeleted = 2,
     StateChanged = 3,
     FilterResults = 4,
-    FindItem = 5
+    FindItem = 5,
+    ItemNotModified = 6
 }
 export declare enum StateManagerType {
     Local = 0,

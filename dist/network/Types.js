@@ -4,6 +4,7 @@ export var RequestType;
     RequestType[RequestType["GET"] = 1] = "GET";
     RequestType[RequestType["PUT"] = 2] = "PUT";
     RequestType[RequestType["DELETE"] = 3] = "DELETE";
+    RequestType[RequestType["PATCH"] = 4] = "PATCH";
 })(RequestType || (RequestType = {}));
 export var queueType;
 (function (queueType) {

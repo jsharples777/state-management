@@ -70,6 +70,7 @@ export class OfflineManager implements StateChangeListener {
 
     public addOfflineRequest(jsonRequest: JSONRequest) {
         if (jsonRequest.type === RequestType.GET) return;
+        if (jsonRequest.type === RequestType.PATCH) return;
 
         if (!Poller.getInstance().isPolling()) {
             Poller.getInstance().startPolling(this.serverBackOnline);
@@ -137,6 +138,9 @@ export class OfflineManager implements StateChangeListener {
     }
 
     foundResult(managerName: string, name: string, foundItem: any): void {
+    }
+
+    itemNotModified(managerName: string, name: string, item: any): void {
     }
 
 

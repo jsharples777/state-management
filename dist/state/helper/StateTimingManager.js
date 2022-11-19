@@ -33,6 +33,8 @@ export class StateTimingManager {
     // eslint-disable-next-line @typescript-eslint/no-empty-function
     foundResult(managerName, name, foundItem) {
     }
+    itemNotModified(managerName, name, item) {
+    }
     getListenerName() {
         return "State Timing Manager";
     }

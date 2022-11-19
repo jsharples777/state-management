@@ -71,6 +71,18 @@ export class ApiUtil {
         this.fetchJSON(request.originalRequest, getParameters, request.callback, request.queueType, request.requestId);
     }
 
+    public apiFetchJSONWithPatch(request: ManagerRequest): void {
+        apiLogger(`Executing PATCH fetch with URL ${request.originalRequest.url} with id ${request.originalRequest.params.id} and modified date ${request.originalRequest.params.modified}`);
+        const patchParameters = {
+            method: 'PATCH',
+            headers: {'Content-Type': 'application/json'},
+        };
+        if (request.originalRequest.params.id && !request.wasOffline) request.originalRequest.url += `/${request.originalRequest.params.id}`;
+        if (request.originalRequest.params.modified && !request.wasOffline) request.originalRequest.url += `/${request.originalRequest.params.modified}`;
+
+        this.fetchJSON(request.originalRequest, patchParameters, request.callback, request.queueType, request.requestId);
+    }
+
     public apiFetchJSONWithDelete(request: ManagerRequest): void {
         apiLogger(`Executing DELETE fetch with URL ${request.originalRequest.url} with id ${request.originalRequest.params.id}`);
         const delParameters = {
@@ -307,7 +319,7 @@ export class ApiUtil {
             })
             .catch((error) => {
                 apiLogger(error);
-                callback(null, 500, queueType, requestId);
+                callback(originalRequest.params, 500, queueType, requestId);
             });
     }
 }

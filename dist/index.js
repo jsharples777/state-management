@@ -54,4 +54,5 @@ export { truncateString, convertHexToNumber, convertSingleHexToNumber, isHexValu
 export { isSameMongo, isSame, isSameUsername, isSameRoom } from './util/EqualityFunctions';
 export { addDurations } from './util/DurationFunctions';
 export { BrowserUtil, getElementOffset, browserUtil } from './util/BrowserUtil';
+export { CachedStateManager } from './cache/CachedStateManager';
 //# sourceMappingURL=index.js.map
