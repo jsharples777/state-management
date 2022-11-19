@@ -26,5 +26,6 @@ export declare class AsyncStateManagerWrapper extends AbstractStateManager imple
     getListenerName(): string;
     filterResults(managerName: string, name: string, filterResults: any): void;
     foundResult(managerName: string, name: string, foundItem: any): void;
+    itemNotModified(managerName: string, name: string, item: any): void;
     fireStateChangedForAllStates(): void;
 }

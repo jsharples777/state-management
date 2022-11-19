@@ -21,6 +21,8 @@ export class DefaultStateContextSupplier {
             }
         }
     }
+    itemNotModified(managerName, name, item) {
+    }
     getListenerName() {
         return "";
     }

@@ -55,6 +55,10 @@ export abstract class AbstractStateManager implements StateManager {
         this.delegate.informChangeListenersForStateWithName(name, foundItem, StateEventType.FindItem, null);
     }
 
+    receivedItemNotModified(name:string, item:any) :void {
+        this.delegate.informChangeListenersForStateWithName(name, item, StateEventType.ItemNotModified, null);
+    }
+
     suppressEvents(): void {
         this.delegate.suppressEvents();
     }

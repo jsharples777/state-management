@@ -14,12 +14,13 @@ export type CollectionConfig = {
 };
 
 export class IndexedDBStateManager extends AbstractAsynchronousStateManager {
+    public static NAME = 'indexeddb';
     private static instance: IndexedDBStateManager;
     protected dbName: string;
     protected collections: CollectionConfig[];
 
     public constructor() {
-        super('indexeddb', 'indexeddb');
+        super(IndexedDBStateManager.NAME, IndexedDBStateManager.NAME);
         this.dbName = 'default';
         this.collections = [];
 

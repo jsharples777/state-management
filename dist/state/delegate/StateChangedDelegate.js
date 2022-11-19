@@ -52,6 +52,10 @@ export class StateChangedDelegate {
                             listener.foundResult(this.managerName, name, stateObjValue);
                             break;
                         }
+                        case (StateEventType.ItemNotModified): {
+                            listener.itemNotModified(this.managerName, name, stateObjValue);
+                            break;
+                        }
                     }
                 }
                 catch (err) {

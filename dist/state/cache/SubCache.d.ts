@@ -25,6 +25,7 @@ export declare class SubCache implements StateChangeListener, SocketListener {
     stateChangedItemUpdated(managerName: string, name: string, itemUpdated: any, itemNewValue: any): void;
     filterResults(managerName: string, name: string, filterResults: any): void;
     foundResult(managerName: string, name: string, foundItem: any): void;
+    itemNotModified(managerName: string, name: string, item: any): void;
     handleMessage(message: string): void;
     handleDataChangedByAnotherUser(message: ClientDataMessage): void;
     setLastUpdatedDates(data: any): void;

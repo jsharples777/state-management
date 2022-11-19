@@ -2,7 +2,8 @@ export enum RequestType {
     POST,
     GET,
     PUT,
-    DELETE
+    DELETE,
+    PATCH
 }
 
 export enum queueType {

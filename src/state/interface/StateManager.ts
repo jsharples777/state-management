@@ -13,7 +13,8 @@ export enum StateEventType {
     ItemDeleted,
     StateChanged,
     FilterResults,
-    FindItem
+    FindItem,
+    ItemNotModified
 }
 
 export enum StateManagerType {

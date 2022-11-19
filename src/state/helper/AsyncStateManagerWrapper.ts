@@ -116,6 +116,10 @@ export class AsyncStateManagerWrapper extends AbstractStateManager implements St
         this.topLevelSM.receivedFoundItem(name, foundItem);
     }
 
+    itemNotModified(managerName: string, name: string, item: any): void {
+        this.topLevelSM.receivedItemNotModified(name,item);
+    }
+
     fireStateChangedForAllStates(): void {
     }
 

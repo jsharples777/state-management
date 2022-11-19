@@ -19,4 +19,5 @@ export declare class OfflineManager implements StateChangeListener {
     stateChangedItemUpdated(managerName: string, name: string, itemUpdated: any, itemNewValue: any): void;
     filterResults(managerName: string, name: string, filterResults: any): void;
     foundResult(managerName: string, name: string, foundItem: any): void;
+    itemNotModified(managerName: string, name: string, item: any): void;
 }

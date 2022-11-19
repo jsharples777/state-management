@@ -6,6 +6,14 @@ import {CallbackRegistry} from "../../network/CallbackRegistry";
 import {FilterItem} from "../../CommonTypes";
 import {AbstractAsynchronousStateManager} from "./AbstractAsynchronousStateManager";
 import {GlobalContextSupplier} from "../helper/GlobalContextSupplier";
+import {
+    FIELD_CreatedBy,
+    FIELD_CreatedOn,
+    FIELD_ModifiedBy,
+    FIELD_ModifiedOn
+} from "../../model/BasicObjectDefinitionFactory";
+import moment from "moment";
+import {SecurityManager} from "../../security/SecurityManager";
 
 
 const logger = debug('state-manager-api');
@@ -20,7 +28,9 @@ export type ApiConfig = {
     create: boolean,
     update: boolean,
     destroy: boolean,
-    find: boolean
+    find: boolean,
+    lastModified: boolean,
+    lastModifiedField?:string
 }
 
 export class RESTApiStateManager extends AbstractAsynchronousStateManager {
@@ -30,6 +40,7 @@ export class RESTApiStateManager extends AbstractAsynchronousStateManager {
     private static FUNCTION_ID_UPDATE_ITEM = 'rest.api.state.manager.update.item';
     private static FUNCTION_ID_GET_ITEMS = 'rest.api.state.manager.get.items';
     private static FUNCTION_ID_FIND_ITEM = 'rest.api.state.manager.find.item';
+    private static FUNCTION_ID_GET_LAST_MODIFIED_ITEM = 'rest.api.state.manager.get.last.modified.item';
 
     protected configuration: ApiConfig[] = [];
 
@@ -39,6 +50,7 @@ export class RESTApiStateManager extends AbstractAsynchronousStateManager {
     private functionIdUpdateItem: string;
     private functionIdGetItems: string;
     private functionIdFindItem: string;
+    private functionIdLastModifiedItem: string;
 
     public constructor(id: string) {
         super(id, 'restapi');
@@ -48,6 +60,7 @@ export class RESTApiStateManager extends AbstractAsynchronousStateManager {
         this.callbackForUpdateItem = this.callbackForUpdateItem.bind(this);
         this.callbackForGetItems = this.callbackForGetItems.bind(this);
         this.callbackForFindItem = this.callbackForFindItem.bind(this);
+        this.callbackForModifiedItem = this.callbackForModifiedItem.bind(this);
 
         // function ids
         this.functionIdAddItem = RESTApiStateManager.FUNCTION_ID_ADD_ITEM + id;
@@ -55,12 +68,14 @@ export class RESTApiStateManager extends AbstractAsynchronousStateManager {
         this.functionIdUpdateItem = RESTApiStateManager.FUNCTION_ID_UPDATE_ITEM + id;
         this.functionIdGetItems = RESTApiStateManager.FUNCTION_ID_GET_ITEMS + id;
         this.functionIdFindItem = RESTApiStateManager.FUNCTION_ID_FIND_ITEM + id;
+        this.functionIdLastModifiedItem = RESTApiStateManager.FUNCTION_ID_GET_LAST_MODIFIED_ITEM + id;
 
         CallbackRegistry.getInstance().addRegisterCallback(this.functionIdAddItem, this.callbackForAddItem);
         CallbackRegistry.getInstance().addRegisterCallback(this.functionIdRemoveItem, this.callbackForRemoveItem);
         CallbackRegistry.getInstance().addRegisterCallback(this.functionIdUpdateItem, this.callbackForUpdateItem);
         CallbackRegistry.getInstance().addRegisterCallback(this.functionIdGetItems, this.callbackForGetItems);
         CallbackRegistry.getInstance().addRegisterCallback(this.functionIdFindItem, this.callbackForFindItem);
+        CallbackRegistry.getInstance().addRegisterCallback(this.functionIdLastModifiedItem, this.callbackForModifiedItem);
     }
 
 
@@ -97,7 +112,8 @@ export class RESTApiStateManager extends AbstractAsynchronousStateManager {
             findAll: true,
             create: true,
             update: true,
-            destroy: true
+            destroy: true,
+            lastModified:false
         }
     }
 
@@ -152,6 +168,15 @@ export class RESTApiStateManager extends AbstractAsynchronousStateManager {
         logger(stateObj);
         let config: ApiConfig = this.getConfigurationForStateName(name);
         if (config.isActive && config.create) {
+
+            if (config.lastModified) {
+                const now = parseInt(moment().format('YYYYMMDDHHmmss'));
+                stateObj[FIELD_ModifiedOn] = now;
+                stateObj[FIELD_CreatedOn] = now;
+                stateObj[FIELD_ModifiedBy] = SecurityManager.getInstance().getLoggedInUsername();
+                stateObj[FIELD_CreatedBy] = SecurityManager.getInstance().getLoggedInUsername();
+            }
+
             const jsonRequest: JSONRequest = {
                 url: config.serverURL + config.api,
                 type: RequestType.POST,
@@ -211,6 +236,13 @@ export class RESTApiStateManager extends AbstractAsynchronousStateManager {
         logger(stateObj);
         let config: ApiConfig = this.getConfigurationForStateName(name);
         if (config.isActive && config.update) {
+
+            if (config.lastModified) {
+                const now = parseInt(moment().format('YYYYMMDDHHmmss'));
+                stateObj[FIELD_ModifiedOn] = now;
+                stateObj[FIELD_ModifiedBy] = SecurityManager.getInstance().getLoggedInUsername();
+            }
+
             const jsonRequest: JSONRequest = {
                 url: config.serverURL + config.api,
                 type: RequestType.PUT,
@@ -237,24 +269,28 @@ export class RESTApiStateManager extends AbstractAsynchronousStateManager {
         return [];
     }
 
-
-    _findItemInState(name: string, item: any): any {
-        logger(`Finding item from ${name}`);
+    private _getLastModifiedForItem(name: string, item: any): any {
+        logger(`Getting Last Modified item from ${name}`);
         logger(item);
         let config: ApiConfig = this.getConfigurationForStateName(name);
         let identifier = item.id;
         if (config.idField) {
             identifier = item[config.idField];
         }
+        let lastModifiedOn = item[FIELD_ModifiedOn];
+        if (config.lastModifiedField) {
+            lastModifiedOn = item[config.lastModifiedField];
+        }
 
-        if (config.isActive && config.find) {
+        if (config.isActive && config.lastModified) {
             const jsonRequest: JSONRequest = {
                 url: config.serverURL + config.api,
-                type: RequestType.GET,
+                type: RequestType.PATCH,
                 params: {
-                    id: identifier
+                    id: identifier,
+                    modified: lastModifiedOn
                 },
-                callbackId: this.functionIdFindItem,
+                callbackId: this.functionIdLastModifiedItem,
                 associatedStateName: name
             };
             if (this.contextDelegate) {
@@ -270,6 +306,49 @@ export class RESTApiStateManager extends AbstractAsynchronousStateManager {
         }
     }
 
+    private _findItemInStateNoCheck(name: string, item: any): any {
+        logger(`Finding item from ${name}`);
+        logger(item);
+        let config: ApiConfig = this.getConfigurationForStateName(name);
+        let identifier = item.id;
+        if (config.idField) {
+            identifier = item[config.idField];
+        }
+        const jsonRequest: JSONRequest = {
+            url: config.serverURL + config.api,
+            type: RequestType.GET,
+            params: {
+                id: identifier
+            },
+            callbackId: this.functionIdFindItem,
+            associatedStateName: name
+        };
+        if (this.contextDelegate) {
+            jsonRequest.context = this.contextDelegate.getContextForApi();
+        }
+        else {
+            jsonRequest.context = GlobalContextSupplier.getInstance().getGlobalContextForApi();
+        }
+        DownloadManager.getInstance().addApiRequest(jsonRequest, true);
+
+    }
+
+
+    _findItemInState(name: string, item: any): any {
+        logger(`Finding item from ${name}`);
+        logger(item);
+        let config: ApiConfig = this.getConfigurationForStateName(name);
+
+        if (config.isActive && config.lastModified) {
+            this._getLastModifiedForItem(name,item);
+        }
+        else if (config.isActive && config.find) {
+            this._findItemInStateNoCheck(name, item);
+        } else {
+            logger(`No configuration for state ${name}`);
+        }
+    }
+
     protected getConfigurationForStateName(name: string) {
         let config: ApiConfig = {
             stateName: name,
@@ -280,7 +359,8 @@ export class RESTApiStateManager extends AbstractAsynchronousStateManager {
             findAll: false,
             create: false,
             update: false,
-            destroy: false
+            destroy: false,
+            lastModified:false
         }
         let foundIndex = this.configuration.findIndex((config) => config.stateName === name);
         if (foundIndex >= 0) {
@@ -321,6 +401,25 @@ export class RESTApiStateManager extends AbstractAsynchronousStateManager {
         if (status >= 200 && status <= 299) { // do we have any data?
             logger(data);
             this.delegate.informChangeListenersForStateWithName(associatedStateName, data, StateEventType.FindItem, null);
+        }
+    }
+
+    private callbackForModifiedItem(data: any, status: number, associatedStateName: string) {
+        logger(`callback for modified item for state ${associatedStateName} with status ${status}`);
+        if (status >= 200 && status <= 299) { // do we have any data?
+            logger(data);
+            if (data.isModified) {
+                this._findItemInStateNoCheck(associatedStateName,data);
+            }
+            else {
+                this.delegate.informChangeListenersForStateWithName(associatedStateName, data, StateEventType.ItemNotModified, null);
+            }
+        }
+        // did the call fail? (server loss)
+        if (status === 500) {
+            logger(data);
+            logger(`Item modified check - offline assume unchanged for now`);
+            this.delegate.informChangeListenersForStateWithName(associatedStateName, data, StateEventType.ItemAdded, null);
         }
     }
 

@@ -213,6 +213,10 @@ export class DownloadManager {
                 ApiUtil.getInstance().apiFetchJSONWithPut(item);
                 break;
             }
+            case RequestType.PATCH: {
+                ApiUtil.getInstance().apiFetchJSONWithPatch(item);
+                break;
+            }
         }
     }
 }

@@ -214,6 +214,9 @@ export class SubCache implements StateChangeListener, SocketListener {
     foundResult(managerName: string, name: string, foundItem: any): void {
     }
 
+    itemNotModified(managerName: string, name: string, item: any): void {
+    }
+
     // eslint-disable-next-line @typescript-eslint/no-empty-function
     handleMessage(message: string): void {
     }
