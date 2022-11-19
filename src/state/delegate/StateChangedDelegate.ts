@@ -99,7 +99,7 @@ export class StateChangedDelegate implements StateChangeInformer {
     private ensureListenerSetupForName(name: string) {
         const foundIndex = this.stateChangeListeners.findIndex(element => element.name === name);
         if (foundIndex < 0) {
-            const listenersNameArrayPair = {
+            const listenersNameArrayPair:stateListeners = {
                 name,
                 listeners: [],
             };
