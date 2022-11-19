@@ -67,5 +67,3 @@ export { truncateString, convertHexToNumber, convertSingleHexToNumber, isHexValu
 export { isSameMongo, isSame, isSameUsername, isSameRoom } from './util/EqualityFunctions';
 export { addDurations } from './util/DurationFunctions';
 export { BrowserUtil, ElementOffset, getElementOffset, browserUtil } from './util/BrowserUtil';
-export { CachedStateManager } from './cache/CachedStateManager';
-export { ItemMerger } from './cache/ItemMerger';
