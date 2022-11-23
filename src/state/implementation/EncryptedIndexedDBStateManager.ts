@@ -15,6 +15,11 @@ export class EncryptedIndexedDBStateManager extends IndexedDBStateManager {
     public constructor() {
         super();
         this.initialise = this.initialise.bind(this);
+        this.addNewItemToCollection = this.addNewItemToCollection.bind(this);
+        this.updateItemInCollection = this.updateItemInCollection.bind(this);
+        this.getWithCollectionKey = this.getWithCollectionKey.bind(this);
+        this.callbackForAddItem = this.callbackForAddItem.bind(this);
+        this.saveItemsToCollection = this.saveItemsToCollection.bind(this);
     }
 
 
@@ -23,12 +28,6 @@ export class EncryptedIndexedDBStateManager extends IndexedDBStateManager {
         const username = SecurityManager.getInstance().getLoggedInUsername();
         this.dbName = `${username}.${dbName}`;
         super.initialise(this.dbName, collections);
-
-        this.addNewItemToCollection = this.addNewItemToCollection.bind(this);
-        this.updateItemInCollection = this.updateItemInCollection.bind(this);
-        this.getWithCollectionKey = this.getWithCollectionKey.bind(this);
-        this.callbackForAddItem = this.callbackForAddItem.bind(this);
-        this.saveItemsToCollection = this.saveItemsToCollection.bind(this);
     }
 
 
