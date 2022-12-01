@@ -135,5 +135,5 @@ export {isSameMongo, isSame, isSameUsername, isSameRoom} from './util/EqualityFu
 export {addDurations} from './util/DurationFunctions';
 export {BrowserUtil, ElementOffset, getElementOffset,browserUtil} from './util/BrowserUtil';
 
-export {CachedStateManager} from './cache/CachedStateManager';
-export {ItemMerger} from './cache/ItemMerger';
+// export {CachedStateManager} from '../../patient-management-system/frontend/src/framework-ext/cache/CachedStateManager';
+// export {ItemMerger} from '../../patient-management-system/frontend/src/framework-ext/cache/ItemMerger';

@@ -54,5 +54,6 @@ export { truncateString, convertHexToNumber, convertSingleHexToNumber, isHexValu
 export { isSameMongo, isSame, isSameUsername, isSameRoom } from './util/EqualityFunctions';
 export { addDurations } from './util/DurationFunctions';
 export { BrowserUtil, getElementOffset, browserUtil } from './util/BrowserUtil';
-export { CachedStateManager } from './cache/CachedStateManager';
+// export {CachedStateManager} from '../../patient-management-system/frontend/src/framework-ext/cache/CachedStateManager';
+// export {ItemMerger} from '../../patient-management-system/frontend/src/framework-ext/cache/ItemMerger';
 //# sourceMappingURL=index.js.map

@@ -17,6 +17,11 @@ export class EncryptedIndexedDBStateManager extends IndexedDBStateManager {
     constructor() {
         super();
         this.initialise = this.initialise.bind(this);
+        this.addNewItemToCollection = this.addNewItemToCollection.bind(this);
+        this.updateItemInCollection = this.updateItemInCollection.bind(this);
+        this.getWithCollectionKey = this.getWithCollectionKey.bind(this);
+        this.callbackForAddItem = this.callbackForAddItem.bind(this);
+        this.saveItemsToCollection = this.saveItemsToCollection.bind(this);
     }
     initialise(dbName, collections) {
         const _super = Object.create(null, {
@@ -27,11 +32,6 @@ export class EncryptedIndexedDBStateManager extends IndexedDBStateManager {
             const username = SecurityManager.getInstance().getLoggedInUsername();
             this.dbName = `${username}.${dbName}`;
             _super.initialise.call(this, this.dbName, collections);
-            this.addNewItemToCollection = this.addNewItemToCollection.bind(this);
-            this.updateItemInCollection = this.updateItemInCollection.bind(this);
-            this.getWithCollectionKey = this.getWithCollectionKey.bind(this);
-            this.callbackForAddItem = this.callbackForAddItem.bind(this);
-            this.saveItemsToCollection = this.saveItemsToCollection.bind(this);
         });
     }
     /* add a new item to the local storage if not already there */

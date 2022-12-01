@@ -118,6 +118,11 @@ export class IndexedDBStateManager extends AbstractAsynchronousStateManager {
             yield this.saveItemsToCollection(objectStore, saveData, keyField);
         });
     }
+    addItemInCollectionUsingConfig(key, item) {
+        return __awaiter(this, void 0, void 0, function* () {
+            return yield this.addNewItemToCollection(key, item, this.getKeyFieldForKey(key));
+        });
+    }
     /* add a new item to the local storage if not already there */
     addNewItemToCollection(key, item, keyField = 'id') {
         return __awaiter(this, void 0, void 0, function* () {
@@ -137,6 +142,12 @@ export class IndexedDBStateManager extends AbstractAsynchronousStateManager {
                 };
                 this.callbackForAddItem(item, key);
             }
+            return item;
+        });
+    }
+    removeItemInCollectionUsingConfig(key, item) {
+        return __awaiter(this, void 0, void 0, function* () {
+            return yield this.removeItemFromCollection(key, item, this.getKeyFieldForKey(key));
         });
     }
     removeItemFromCollection(key, item, keyField = 'id') {
@@ -158,6 +169,12 @@ export class IndexedDBStateManager extends AbstractAsynchronousStateManager {
                 yield transaction.done;
                 this.callbackForRemoveItem(item, key);
             }
+            return item;
+        });
+    }
+    updateItemInCollectionUsingConfig(key, item) {
+        return __awaiter(this, void 0, void 0, function* () {
+            return yield this.updateItemInCollection(key, item, this.getKeyFieldForKey(key));
         });
     }
     updateItemInCollection(key, item, keyField = 'id') {
@@ -180,12 +197,18 @@ export class IndexedDBStateManager extends AbstractAsynchronousStateManager {
                 yield transaction.done;
                 this.callbackForUpdateItem(item, key);
             }
+            return item;
         });
     }
     setStateByName(name, stateObjectForName, informListeners) {
         this._replaceNamedStateInStorage({ name: name, value: stateObjectForName, hasBeenSet: true });
         if (informListeners)
             this.delegate.informChangeListenersForStateWithName(name, stateObjectForName, StateEventType.StateChanged, null);
+    }
+    getCollectionUsingConfig(key) {
+        return __awaiter(this, void 0, void 0, function* () {
+            return yield this.getWithCollectionKey(key, this.getKeyFieldForKey(key));
+        });
     }
     getWithCollectionKey(key, keyField = 'id') {
         return __awaiter(this, void 0, void 0, function* () {
@@ -216,6 +239,31 @@ export class IndexedDBStateManager extends AbstractAsynchronousStateManager {
         return StateManagerType.AsyncLocal;
     }
     _findItemInState(name, item) {
+        logger(`finding item ${name}`);
+        logger(item);
+        this.findItemInCollection(name, this.getKeyFieldForKey(name));
+        return undefined;
+    }
+    findItemInCollectionUsingConfig(key, item) {
+        return __awaiter(this, void 0, void 0, function* () {
+            return yield this.findItemInCollection(key, item, this.getKeyFieldForKey(key));
+        });
+    }
+    findItemInCollection(key, item, keyField = 'id') {
+        return __awaiter(this, void 0, void 0, function* () {
+            logger(`Loading with key ${key}`);
+            let db = yield openDB(this.dbName);
+            yield this.checkForObjectStore(db, key, keyField);
+            // @ts-ignore
+            let transaction = db.transaction([key]);
+            // @ts-ignore
+            let objectStore = transaction.store;
+            const id = item[keyField];
+            const foundItem = yield objectStore.get(id);
+            logger(foundItem);
+            this.callbackForFindItem(foundItem, key);
+            return foundItem;
+        });
     }
     getKeyFieldForKey(key) {
         let result = '_id';
@@ -268,6 +316,11 @@ export class IndexedDBStateManager extends AbstractAsynchronousStateManager {
             logger(`callback for update item for state ${associatedStateName}  - not forwarded`);
             logger(data);
         });
+    }
+    callbackForFindItem(data, associatedStateName) {
+        logger(`callback for find item for state ${associatedStateName} - FORWARDING`);
+        logger(data);
+        this.delegate.informChangeListenersForStateWithName(associatedStateName, data, StateEventType.FindItem, null);
     }
     callbackForGetItems(data, associatedStateName) {
         logger(`callback for get items for state ${associatedStateName} - FORWARDING`);

@@ -133,6 +133,11 @@ export class IndexedDBStateManager extends AbstractAsynchronousStateManager {
         await this.saveItemsToCollection(objectStore, saveData, keyField);
     }
 
+    public async addItemInCollectionUsingConfig(key:string, item:any):Promise<any> {
+        return await this.addNewItemToCollection(key, item, this.getKeyFieldForKey(key));
+    }
+
+
     /* add a new item to the local storage if not already there */
     public async addNewItemToCollection(key: string, item: any, keyField: string = 'id') {
         if (item !== null) {
@@ -152,7 +157,12 @@ export class IndexedDBStateManager extends AbstractAsynchronousStateManager {
             };
             this.callbackForAddItem(item, key);
         }
+        return item;
     }
+    public async removeItemInCollectionUsingConfig(key:string, item:any):Promise<any> {
+        return await this.removeItemFromCollection(key, item, this.getKeyFieldForKey(key));
+    }
+
 
     public async removeItemFromCollection(key: string, item: any, keyField: string = 'id') {
         if (item !== null) {
@@ -174,7 +184,13 @@ export class IndexedDBStateManager extends AbstractAsynchronousStateManager {
             this.callbackForRemoveItem(item, key);
 
         }
+        return item;
     }
+
+    public async updateItemInCollectionUsingConfig(key:string, item:any):Promise<any> {
+        return await this.updateItemInCollection(key, item, this.getKeyFieldForKey(key));
+    }
+
 
     public async updateItemInCollection(key: string, item: any, keyField: string = 'id') {
         if (item) {
@@ -196,12 +212,18 @@ export class IndexedDBStateManager extends AbstractAsynchronousStateManager {
             await transaction.done;
             this.callbackForUpdateItem(item, key);
         }
+        return item;
     }
 
     setStateByName(name: string, stateObjectForName: any, informListeners: boolean): void {
         this._replaceNamedStateInStorage({name: name, value: stateObjectForName, hasBeenSet: true});
         if (informListeners) this.delegate.informChangeListenersForStateWithName(name, stateObjectForName, StateEventType.StateChanged, null);
     }
+
+    public async getCollectionUsingConfig(key:string):Promise<any> {
+        return await this.getWithCollectionKey(key, this.getKeyFieldForKey(key));
+    }
+
 
     public async getWithCollectionKey(key: string, keyField: string = 'id') {
         let savedResults: any[] = [];
@@ -237,9 +259,35 @@ export class IndexedDBStateManager extends AbstractAsynchronousStateManager {
     }
 
     _findItemInState(name: string, item: any): any {
+        logger(`finding item ${name}`);
+        logger(item);
+        this.findItemInCollection(name, this.getKeyFieldForKey(name));
+        return undefined;
     }
 
-    protected getKeyFieldForKey(key: string): string {
+    public async findItemInCollectionUsingConfig(key:string, item:any):Promise<any> {
+        return await this.findItemInCollection(key, item, this.getKeyFieldForKey(key));
+    }
+
+    public async findItemInCollection(key: string, item:any, keyField: string = 'id'):Promise<any> {
+        logger(`Loading with key ${key}`);
+        let db: IDBPDatabase = await openDB(this.dbName);
+        await this.checkForObjectStore(db, key, keyField);
+
+        // @ts-ignore
+        let transaction: IDBPTransaction = db.transaction([key]);
+        // @ts-ignore
+        let objectStore: IDBPObjectStore = transaction.store;
+
+        const id = item[keyField];
+        const foundItem = await objectStore.get(id);
+        logger(foundItem);
+        this.callbackForFindItem(foundItem, key);
+        return foundItem;
+
+    }
+
+    public getKeyFieldForKey(key: string): string {
         let result = '_id';
         const foundIndex = this.collections.findIndex((collection) => collection.name === key);
         if (foundIndex >= 0) {
@@ -285,6 +333,12 @@ export class IndexedDBStateManager extends AbstractAsynchronousStateManager {
     protected async callbackForUpdateItem(data: any, associatedStateName: string) {
         logger(`callback for update item for state ${associatedStateName}  - not forwarded`);
         logger(data);
+    }
+
+    protected callbackForFindItem(data: any, associatedStateName: string) {
+        logger(`callback for find item for state ${associatedStateName} - FORWARDING`);
+        logger(data);
+        this.delegate.informChangeListenersForStateWithName(associatedStateName, data, StateEventType.FindItem, null);
     }
 
     protected callbackForGetItems(data: any, associatedStateName: string) {
