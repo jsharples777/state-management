@@ -38,6 +38,7 @@ export class SubCache implements StateChangeListener, SocketListener {
     public removeAllCaches(): void {
         this.cacheConfig.forEach((config) => {
             this.cache.setStateByName(config.name,[],true);
+            localStorage.removeItem(this.getLocalStorageKey(config.name));
         });
     }
 

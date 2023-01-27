@@ -36,6 +36,7 @@ export class SubCache {
     removeAllCaches() {
         this.cacheConfig.forEach((config) => {
             this.cache.setStateByName(config.name, [], true);
+            localStorage.removeItem(this.getLocalStorageKey(config.name));
         });
     }
     deleteCache() {
