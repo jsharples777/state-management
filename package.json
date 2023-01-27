@@ -1,6 +1,6 @@
 {
   "name": "browser-state-management",
-  "version": "0.0.22",
+  "version": "0.0.25",
   "description": "A simple UI framework for state management",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
