@@ -43,6 +43,11 @@ export class SubCache implements StateChangeListener, SocketListener {
 
     public deleteCache():void {
         this.cache.deleteDatabase();
+        if (this.cacheConfig) {
+            this.cacheConfig.forEach((config) => {
+                localStorage.removeItem(this.getLocalStorageKey(config.name));
+            });
+        }
     }
 
     stateChanged(managerName: string, name: string, newValue: any): void {
