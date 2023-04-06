@@ -38,7 +38,7 @@ export class IndexedDBStateManager extends AbstractAsynchronousStateManager {
             this.dbName = dbName;
             this.collections = collections;
             this.collections.forEach((collection) => {
-                this.addStateNameToConfigurations(collection.name);
+                this.addStateNameToConfigurations(collection.name, false);
             });
             const isOpen = yield this.openDatabase(dbName, collections);
             if (!isOpen) {

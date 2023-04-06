@@ -47,7 +47,7 @@ export class RESTApiStateManager extends AbstractAsynchronousStateManager {
     }
     addConfig(config) {
         this.configuration.push(config);
-        this.addStateNameToConfigurations(config.stateName);
+        this.addStateNameToConfigurations(config.stateName, config.getFindAllEachTimeIsCalled);
         this.initialised = true;
     }
     addConfigByStateNameAndApi(stateName, api, idField = '_id') {
@@ -59,6 +59,7 @@ export class RESTApiStateManager extends AbstractAsynchronousStateManager {
             idField: idField,
             find: true,
             findAll: true,
+            getFindAllEachTimeIsCalled: false,
             create: true,
             update: true,
             destroy: true,
@@ -288,6 +289,7 @@ export class RESTApiStateManager extends AbstractAsynchronousStateManager {
             isActive: false,
             find: false,
             findAll: false,
+            getFindAllEachTimeIsCalled: false,
             create: false,
             update: false,
             destroy: false,

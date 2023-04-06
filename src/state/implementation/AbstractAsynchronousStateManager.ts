@@ -1,5 +1,5 @@
 import {AsynchronousStateManager} from "../interface/AsynchronousStateManager";
-import {FilterItem} from "../../CommonTypes";
+import {FilterItem, UndefinedBoolean} from "../../CommonTypes";
 import {StateEventType, StateManagerType, StateValue} from "../interface/StateManager";
 import {StateContextSupplier} from "../interface/StateContextSupplier";
 import {StateChangeListener} from "../interface/StateChangeListener";
@@ -13,6 +13,7 @@ const logger = debug('abstract-async-state-manager');
 export abstract class AbstractAsynchronousStateManager implements AsynchronousStateManager {
     protected bHasCompletedRun: boolean[];
     protected bIsRunInProgress: boolean[];
+    protected bGetStateEachTime: boolean[];
     protected delegate: StateChangeInformer;
     protected contextDelegate: StateContextDelegate | null = null;
     protected managerName: string;
@@ -25,6 +26,7 @@ export abstract class AbstractAsynchronousStateManager implements AsynchronousSt
         this.emitEvents();
         this.bHasCompletedRun = [];
         this.bIsRunInProgress = [];
+        this.bGetStateEachTime = [];
         this.managerName = managerName;
         this.stateBuffers = [];
         this.id = id;
@@ -63,13 +65,16 @@ export abstract class AbstractAsynchronousStateManager implements AsynchronousSt
         }
     }
 
-    addStateNameToConfigurations(stateName: string) {
+    addStateNameToConfigurations(stateName: string,getStateEachTime:boolean) {
         let state: StateValue = {
             name: stateName,
             value: [],
-            hasBeenSet: false
+            hasBeenSet: false,
         }
         this.stateBuffers.push(state);
+
+
+        this.bGetStateEachTime.push(getStateEachTime);
         this.bIsRunInProgress.push(false);
         this.bHasCompletedRun.push(false);
     }
@@ -95,6 +100,9 @@ export abstract class AbstractAsynchronousStateManager implements AsynchronousSt
         let foundIndex = this.stateBuffers.findIndex((config) => config.name === stateName);
         if (foundIndex >= 0) {
             result = this.bHasCompletedRun[foundIndex];
+            if (this.bGetStateEachTime[foundIndex]) {
+                result = false;
+            }
         }
         return result;
     }

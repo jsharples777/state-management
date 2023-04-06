@@ -36,6 +36,7 @@ export type QLConfig = {
         find: string
     }
     isActive: boolean,
+    getFindAllEachTimeIsCalled:boolean,
     idField?: string
 }
 
@@ -97,7 +98,7 @@ export class GraphQLApiStateManager extends AbstractAsynchronousStateManager {
 
     public addConfig(config: QLConfig): void {
         this.configuration.push(config);
-        this.addStateNameToConfigurations(config.stateName);
+        this.addStateNameToConfigurations(config.stateName,config.getFindAllEachTimeIsCalled);
         this.initialised = true;
     }
 
@@ -281,6 +282,7 @@ export class GraphQLApiStateManager extends AbstractAsynchronousStateManager {
                 update: '',
                 find: ''
             },
+            getFindAllEachTimeIsCalled:false,
             isActive: false
         }
         let foundIndex = this.configuration.findIndex((config) => config.stateName === name);

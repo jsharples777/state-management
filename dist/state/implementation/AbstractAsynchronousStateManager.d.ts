@@ -8,6 +8,7 @@ import { StateContextDelegate } from "../delegate/StateContextDelegate";
 export declare abstract class AbstractAsynchronousStateManager implements AsynchronousStateManager {
     protected bHasCompletedRun: boolean[];
     protected bIsRunInProgress: boolean[];
+    protected bGetStateEachTime: boolean[];
     protected delegate: StateChangeInformer;
     protected contextDelegate: StateContextDelegate | null;
     protected managerName: string;
@@ -26,7 +27,7 @@ export declare abstract class AbstractAsynchronousStateManager implements Asynch
     abstract _saveState(name: string, stateObj: any): void;
     abstract _updateItemInState(name: string, stateObj: any, isPersisted: boolean): void;
     addChangeListenerForName(name: string, listener: StateChangeListener): void;
-    addStateNameToConfigurations(stateName: string): void;
+    addStateNameToConfigurations(stateName: string, getStateEachTime: boolean): void;
     forceResetForGet(stateName: string): void;
     getConfiguredStateNames(): string[];
     hasCompletedRun(stateName: string): boolean;

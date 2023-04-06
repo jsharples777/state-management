@@ -46,7 +46,7 @@ export class GraphQLApiStateManager extends AbstractAsynchronousStateManager {
     }
     addConfig(config) {
         this.configuration.push(config);
-        this.addStateNameToConfigurations(config.stateName);
+        this.addStateNameToConfigurations(config.stateName, config.getFindAllEachTimeIsCalled);
         this.initialised = true;
     }
     _addNewNamedStateToStorage(state) {
@@ -212,6 +212,7 @@ export class GraphQLApiStateManager extends AbstractAsynchronousStateManager {
                 update: '',
                 find: ''
             },
+            getFindAllEachTimeIsCalled: false,
             isActive: false
         };
         let foundIndex = this.configuration.findIndex((config) => config.stateName === name);

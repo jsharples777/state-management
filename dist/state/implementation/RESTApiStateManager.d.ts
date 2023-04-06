@@ -8,6 +8,7 @@ export declare type ApiConfig = {
     isActive: boolean;
     idField?: string;
     findAll: boolean;
+    getFindAllEachTimeIsCalled: boolean;
     create: boolean;
     update: boolean;
     destroy: boolean;

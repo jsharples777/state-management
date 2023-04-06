@@ -11,6 +11,7 @@ export class AbstractAsynchronousStateManager {
         this.emitEvents();
         this.bHasCompletedRun = [];
         this.bIsRunInProgress = [];
+        this.bGetStateEachTime = [];
         this.managerName = managerName;
         this.stateBuffers = [];
         this.id = id;
@@ -26,13 +27,14 @@ export class AbstractAsynchronousStateManager {
             }
         }
     }
-    addStateNameToConfigurations(stateName) {
+    addStateNameToConfigurations(stateName, getStateEachTime) {
         let state = {
             name: stateName,
             value: [],
-            hasBeenSet: false
+            hasBeenSet: false,
         };
         this.stateBuffers.push(state);
+        this.bGetStateEachTime.push(getStateEachTime);
         this.bIsRunInProgress.push(false);
         this.bHasCompletedRun.push(false);
     }
@@ -55,6 +57,9 @@ export class AbstractAsynchronousStateManager {
         let foundIndex = this.stateBuffers.findIndex((config) => config.name === stateName);
         if (foundIndex >= 0) {
             result = this.bHasCompletedRun[foundIndex];
+            if (this.bGetStateEachTime[foundIndex]) {
+                result = false;
+            }
         }
         return result;
     }

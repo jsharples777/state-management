@@ -20,6 +20,7 @@ export declare type QLConfig = {
         find: string;
     };
     isActive: boolean;
+    getFindAllEachTimeIsCalled: boolean;
     idField?: string;
 };
 export declare class GraphQLApiStateManager extends AbstractAsynchronousStateManager {
