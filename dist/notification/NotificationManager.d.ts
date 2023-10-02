@@ -15,7 +15,7 @@ export declare class NotificationManager {
     getAttachmentRenderer(): NotificationAttachmentRenderer | undefined;
     addListener(listener: NotificationListener): void;
     show(content: NotificationContent): void;
-    protected redisplayNotifications(location: NotificationLocation, includeHidden: boolean): void;
+    redisplayNotifications(location: NotificationLocation, includeHidden: boolean): void;
     hide(content: NotificationContent): void;
     close(content: NotificationContent): void;
     showAllNotifications(): void;

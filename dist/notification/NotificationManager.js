@@ -51,21 +51,36 @@ export class NotificationManager {
             this.currentCounts[location] = 0;
             browserUtil.removeAllChildren(containerEl);
             this.notifications.forEach((notification) => {
-                if (notification.element) {
-                    if (includeHidden) {
+                if (notification.location === location) {
+                    if (notification.element) {
+                        const offset = this.offsetPerNotification * index;
                         this.currentCounts[location]++;
-                        containerEl.appendChild(notification.element);
-                        notification.isVisible = UndefinedBoolean.true;
-                        // @ts-ignore
-                        if (notification.element)
-                            notification.element.style.top = `${this.offsetPerNotification * index}px`;
-                        index++;
-                    }
-                    else if (notification.isVisible && notification.isVisible === UndefinedBoolean.true) {
-                        this.currentCounts[location]++;
-                        containerEl.appendChild(notification.element);
-                        // @ts-ignore
-                        notification.element.style.top = `${this.offsetPerNotification * index}px`;
+                        if (includeHidden) {
+                            containerEl.appendChild(notification.element);
+                            notification.isVisible = UndefinedBoolean.true;
+                            // @ts-ignore
+                            if (notification.element) {
+                                if (notification.location === NotificationLocation.topright || notification.location === NotificationLocation.topleft) {
+                                    // @ts-ignore
+                                    notification.element.style.top = `${offset}px`;
+                                }
+                                else {
+                                    // @ts-ignore
+                                    notification.element.style.bottom = `${offset}px`;
+                                }
+                            }
+                        }
+                        else if (notification.isVisible && notification.isVisible === UndefinedBoolean.true) {
+                            containerEl.appendChild(notification.element);
+                            if (notification.location === NotificationLocation.topright || notification.location === NotificationLocation.topleft) {
+                                // @ts-ignore
+                                notification.element.style.top = `${offset}px`;
+                            }
+                            else {
+                                // @ts-ignore
+                                notification.element.style.bottom = `${offset}px`;
+                            }
+                        }
                         index++;
                     }
                 }
