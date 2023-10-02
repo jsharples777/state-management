@@ -12,6 +12,14 @@ export type NotificationSource = {
     id?:string
 }
 
+export enum NotificationLocation {
+    topright,
+    topleft,
+    bottomleft,
+    bottomright
+
+}
+
 export type NotificationAttachment = {
     type:string,
     value:any
@@ -23,11 +31,12 @@ export type NotificationContent = {
     id:string,
     type:NotificationType,
     duration:number,
+    location:NotificationLocation,
     removeOnHide?:UndefinedBoolean
     element?:Node,
     isVisible?:UndefinedBoolean,
     source?:NotificationSource,
-    attachment?:NotificationAttachment
+    attachment?:NotificationAttachment,
 }
 
 export type NotificationCounts = {

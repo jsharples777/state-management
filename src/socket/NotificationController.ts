@@ -9,7 +9,7 @@ import {v4} from "uuid";
 import {
     FrameworkNotificationSources,
     NotificationAttachment,
-    NotificationContent,
+    NotificationContent, NotificationLocation,
     NotificationType
 } from "../notification/NotificationTypes";
 
@@ -162,7 +162,8 @@ export class NotificationController implements ChatEventListener, ChatUserEventL
                 id: room
             },
             title: 'Room',
-            type: NotificationType.info
+            type: NotificationType.info,
+            location: NotificationLocation.topright
 
         }
         NotificationManager.getInstance().show(notification);
@@ -192,7 +193,8 @@ export class NotificationController implements ChatEventListener, ChatUserEventL
                         id: invite.room
                     },
                     title: 'Room',
-                    type: NotificationType.info
+                    type: NotificationType.info,
+                    location: NotificationLocation.topright
 
                 }
                 NotificationManager.getInstance().show(notification);
@@ -294,7 +296,8 @@ export class NotificationController implements ChatEventListener, ChatUserEventL
                         },
                         title: displayMessage.from,
                         type: notificationType,
-                        attachment: attachment
+                        attachment: attachment,
+                        location: NotificationLocation.topright
                     }
                     NotificationManager.getInstance().show(notification);
                     this.sendOSNotification(displayMessage.from, displayMessage.message, displayMessage.priority);
@@ -327,7 +330,8 @@ export class NotificationController implements ChatEventListener, ChatUserEventL
                     name: FrameworkNotificationSources.CHAT
                 },
                 title: 'Room',
-                type: NotificationType.warning
+                type: NotificationType.warning,
+                location: NotificationLocation.topright
 
             }
             NotificationManager.getInstance().show(notification);
@@ -349,7 +353,8 @@ export class NotificationController implements ChatEventListener, ChatUserEventL
                     name: FrameworkNotificationSources.CHAT
                 },
                 title: 'Room',
-                type: NotificationType.warning
+                type: NotificationType.warning,
+                location: NotificationLocation.topright
 
             }
             NotificationManager.getInstance().show(notification);
@@ -390,7 +395,8 @@ export class NotificationController implements ChatEventListener, ChatUserEventL
                     name: FrameworkNotificationSources.CHAT
                 },
                 title: 'Offline Messages',
-                type: NotificationType.warning
+                type: NotificationType.warning,
+                location: NotificationLocation.topright
 
             }
             NotificationManager.getInstance().show(notification);

@@ -1,14 +1,18 @@
 import { NotificationFactory } from "./NotificationFactory";
-import { NotificationType } from "./NotificationTypes";
+import { NotificationLocation, NotificationType } from "./NotificationTypes";
 import { UndefinedBoolean } from "../CommonTypes";
 import browserUtil from "../util/BrowserUtil";
 export class NotificationManager {
     constructor() {
         this.notifications = [];
         this.listeners = [];
-        this.currentCount = 0;
+        this.currentCounts = [];
+        this.containerIds = [];
         this.offsetPerNotification = 120;
-        this.containerId = 'notifications';
+        this.containerIds[NotificationLocation.topright] = 'notifications-top-right';
+        this.containerIds[NotificationLocation.topleft] = 'notifications-top-left';
+        this.containerIds[NotificationLocation.bottomleft] = 'notifications-bottom-left';
+        this.containerIds[NotificationLocation.bottomright] = 'notifications-bottom-right';
         this.show = this.show.bind(this);
     }
     static getInstance() {
@@ -17,8 +21,8 @@ export class NotificationManager {
         }
         return NotificationManager._instance;
     }
-    getContainerId() {
-        return this.containerId;
+    getContainerId(location) {
+        return this.containerIds[location];
     }
     setAttachmentRenderer(renderer) {
         this.attachmentRenderer = renderer;
@@ -32,24 +36,24 @@ export class NotificationManager {
     show(content) {
         if (this.isIdInList(content.id))
             return;
-        const notification = NotificationFactory.getInstance().createNotification(this);
-        const notificationNode = notification.show(content, this.currentCount * this.offsetPerNotification);
+        const notification = NotificationFactory.getInstance().createNotification(this, content.location);
+        const notificationNode = notification.show(content, this.currentCounts[content.location] * this.offsetPerNotification);
         content.element = notificationNode;
         content.isVisible = UndefinedBoolean.true;
-        this.currentCount++;
+        this.currentCounts[content.location]++;
         this.notifications.push(content);
         this.listeners.forEach((listener) => listener.notificationAdded(content));
     }
-    redisplayNotifications(includeHidden) {
+    redisplayNotifications(location, includeHidden) {
         let index = 0;
-        const containerEl = document.getElementById(this.containerId);
+        const containerEl = document.getElementById(this.containerIds[location]);
         if (containerEl) {
-            this.currentCount = 0;
+            this.currentCounts[location] = 0;
             browserUtil.removeAllChildren(containerEl);
             this.notifications.forEach((notification) => {
                 if (notification.element) {
                     if (includeHidden) {
-                        this.currentCount++;
+                        this.currentCounts[location]++;
                         containerEl.appendChild(notification.element);
                         notification.isVisible = UndefinedBoolean.true;
                         // @ts-ignore
@@ -58,7 +62,7 @@ export class NotificationManager {
                         index++;
                     }
                     else if (notification.isVisible && notification.isVisible === UndefinedBoolean.true) {
-                        this.currentCount++;
+                        this.currentCounts[location]++;
                         containerEl.appendChild(notification.element);
                         // @ts-ignore
                         notification.element.style.top = `${this.offsetPerNotification * index}px`;
@@ -80,15 +84,15 @@ export class NotificationManager {
                 this.notifications[foundIndex].isVisible = UndefinedBoolean.false;
             }
             // re-arrange the remaining notifications
-            this.redisplayNotifications(false);
+            this.redisplayNotifications(content.location, false);
         }
         if (content.element) {
             const parentEl = content.element.parentElement;
             if (parentEl !== null)
                 parentEl.removeChild(content.element);
-            this.currentCount--;
-            if (this.currentCount < 0)
-                this.currentCount = 0;
+            this.currentCounts[content.location]--;
+            if (this.currentCounts[content.location] < 0)
+                this.currentCounts[content.location] = 0;
         }
     }
     close(content) {
@@ -96,7 +100,10 @@ export class NotificationManager {
         this.hide(content);
     }
     showAllNotifications() {
-        this.redisplayNotifications(true);
+        this.redisplayNotifications(NotificationLocation.bottomleft, true);
+        this.redisplayNotifications(NotificationLocation.bottomright, true);
+        this.redisplayNotifications(NotificationLocation.topleft, true);
+        this.redisplayNotifications(NotificationLocation.topright, true);
     }
     isIdInList(id) {
         let result = false;
@@ -112,7 +119,7 @@ export class NotificationManager {
     contentClicked(content) {
         this.listeners.forEach((listener) => listener.notificationClicked(content));
     }
-    getNotificationCount() {
+    getNotificationCount(location) {
         const counts = {
             messages: 0,
             info: 0,
@@ -120,22 +127,24 @@ export class NotificationManager {
             priority: 0
         };
         this.notifications.forEach((notification) => {
-            switch (notification.type) {
-                case NotificationType.message: {
-                    counts.messages++;
-                    break;
-                }
-                case NotificationType.info: {
-                    counts.info++;
-                    break;
-                }
-                case NotificationType.warning: {
-                    counts.warning++;
-                    break;
-                }
-                case NotificationType.priority: {
-                    counts.priority++;
-                    break;
+            if (notification.location === location) {
+                switch (notification.type) {
+                    case NotificationType.message: {
+                        counts.messages++;
+                        break;
+                    }
+                    case NotificationType.info: {
+                        counts.info++;
+                        break;
+                    }
+                    case NotificationType.warning: {
+                        counts.warning++;
+                        break;
+                    }
+                    case NotificationType.priority: {
+                        counts.priority++;
+                        break;
+                    }
                 }
             }
         });

@@ -9,7 +9,12 @@ import {AsynchronousStateManager} from "../state/interface/AsynchronousStateMana
 import debug from "debug";
 import {EncryptedIndexedDBStateManager} from "../state/implementation/EncryptedIndexedDBStateManager";
 import {ObjectDefinitionRegistry} from "../model/ObjectDefinitionRegistry";
-import {FrameworkNotificationSources, NotificationContent, NotificationType} from "../notification/NotificationTypes";
+import {
+    FrameworkNotificationSources,
+    NotificationContent,
+    NotificationLocation,
+    NotificationType
+} from "../notification/NotificationTypes";
 
 const logger = debug('offline-manager');
 
@@ -57,7 +62,8 @@ export class OfflineManager implements StateChangeListener {
                 name: FrameworkNotificationSources.OFFLINE_MANAGER
             },
             title: 'Server',
-            type: NotificationType.warning
+            type: NotificationType.warning,
+            location: NotificationLocation.topright
 
         }
         NotificationManager.getInstance().show(notification);
@@ -82,7 +88,8 @@ export class OfflineManager implements StateChangeListener {
                     name: FrameworkNotificationSources.OFFLINE_MANAGER
                 },
                 title: 'Server',
-                type: NotificationType.warning
+                type: NotificationType.warning,
+                location: NotificationLocation.topright
 
             }
             NotificationManager.getInstance().show(notification);
@@ -109,7 +116,8 @@ export class OfflineManager implements StateChangeListener {
                     name: FrameworkNotificationSources.OFFLINE_MANAGER
                 },
                 title: 'Server',
-                type: NotificationType.warning
+                type: NotificationType.warning,
+                location: NotificationLocation.topright
 
             }
             NotificationManager.getInstance().show(notification);

@@ -1,7 +1,7 @@
 import { Notification } from './Notification';
 import { NotificationManager } from "./NotificationManager";
-import { NotificationContent } from "./NotificationTypes";
+import { NotificationContent, NotificationLocation } from "./NotificationTypes";
 export declare class BootstrapNotification extends Notification {
-    constructor(notificationManager: NotificationManager);
-    show(content: NotificationContent, topOffset?: number): HTMLElement;
+    constructor(notificationManager: NotificationManager, location: NotificationLocation);
+    show(content: NotificationContent, offset?: number): HTMLElement;
 }

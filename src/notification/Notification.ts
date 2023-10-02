@@ -1,6 +1,6 @@
 import {NotificationManager} from "./NotificationManager";
 import {v4} from "uuid";
-import {NotificationContent} from "./NotificationTypes";
+import {NotificationContent, NotificationLocation} from "./NotificationTypes";
 
 export abstract class Notification {
 
@@ -8,14 +8,14 @@ export abstract class Notification {
     protected containerId: string;
     protected id:string;
 
-    protected constructor(notificationManager: NotificationManager) {
+    protected constructor(notificationManager: NotificationManager,location:NotificationLocation) {
         this.show = this.show.bind(this);
         this.id = v4();
 
         this.notificationManager = notificationManager;
 
         // Create DOM notification structure when instantiated
-        this.containerId = this.notificationManager.getContainerId();
+        this.containerId = this.notificationManager.getContainerId(location);
     }
 
     public getId():string {

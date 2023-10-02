@@ -7,7 +7,7 @@ import { NotificationManager } from "../notification/NotificationManager";
 import debug from "debug";
 import { EncryptedIndexedDBStateManager } from "../state/implementation/EncryptedIndexedDBStateManager";
 import { ObjectDefinitionRegistry } from "../model/ObjectDefinitionRegistry";
-import { FrameworkNotificationSources, NotificationType } from "../notification/NotificationTypes";
+import { FrameworkNotificationSources, NotificationLocation, NotificationType } from "../notification/NotificationTypes";
 const logger = debug('offline-manager');
 export class OfflineManager {
     constructor() {
@@ -44,7 +44,8 @@ export class OfflineManager {
                 name: FrameworkNotificationSources.OFFLINE_MANAGER
             },
             title: 'Server',
-            type: NotificationType.warning
+            type: NotificationType.warning,
+            location: NotificationLocation.topright
         };
         NotificationManager.getInstance().show(notification);
         this.processQueuedResults();
@@ -67,7 +68,8 @@ export class OfflineManager {
                     name: FrameworkNotificationSources.OFFLINE_MANAGER
                 },
                 title: 'Server',
-                type: NotificationType.warning
+                type: NotificationType.warning,
+                location: NotificationLocation.topright
             };
             NotificationManager.getInstance().show(notification);
         }
@@ -90,7 +92,8 @@ export class OfflineManager {
                     name: FrameworkNotificationSources.OFFLINE_MANAGER
                 },
                 title: 'Server',
-                type: NotificationType.warning
+                type: NotificationType.warning,
+                location: NotificationLocation.topright
             };
             NotificationManager.getInstance().show(notification);
             offlineResults.forEach((request) => {

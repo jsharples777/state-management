@@ -8,8 +8,8 @@ export class NotificationFactory {
         }
         return NotificationFactory._instance;
     }
-    createNotification(manager) {
-        return new BootstrapNotification(manager);
+    createNotification(manager, location) {
+        return new BootstrapNotification(manager, location);
     }
 }
 //# sourceMappingURL=NotificationFactory.js.map

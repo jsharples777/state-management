@@ -1,13 +1,13 @@
 import { Notification } from './Notification';
 import { NotificationManager } from "./NotificationManager";
-import { NotificationType } from "./NotificationTypes";
+import { NotificationLocation, NotificationType } from "./NotificationTypes";
 export class BootstrapNotification extends Notification {
-    constructor(notificationManager) {
-        super(notificationManager);
+    constructor(notificationManager, location) {
+        super(notificationManager, location);
     }
     // Make the notification visible on the screen
-    show(content, topOffset = 0) {
-        let containerId = this.notificationManager.getContainerId();
+    show(content, offset = 0) {
+        let containerId = this.notificationManager.getContainerId(content.location);
         // convert the context to a background colour
         let bgColorClass = '';
         switch (content.type) {
@@ -34,7 +34,12 @@ export class BootstrapNotification extends Notification {
         // Creating the notification container div
         const containerNode = document.createElement('div');
         containerNode.className = 'notification toast';
-        containerNode.style.top = `${topOffset}px`;
+        if (content.location === NotificationLocation.topright || content.location === NotificationLocation.topleft) {
+            containerNode.style.top = `${offset}px`;
+        }
+        else {
+            containerNode.style.bottom = `${offset}px`;
+        }
         containerNode.setAttribute("role", "alert");
         containerNode.setAttribute("data-autohide", "false");
         // Adding the notification title node

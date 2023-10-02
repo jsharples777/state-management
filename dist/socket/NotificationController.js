@@ -3,7 +3,7 @@ import { NotificationManager } from "../notification/NotificationManager";
 import debug from 'debug';
 import { InviteType, Priority } from "./Types";
 import { v4 } from "uuid";
-import { FrameworkNotificationSources, NotificationType } from "../notification/NotificationTypes";
+import { FrameworkNotificationSources, NotificationLocation, NotificationType } from "../notification/NotificationTypes";
 const logger = debug('notification-controller');
 export class NotificationController {
     constructor() {
@@ -121,7 +121,8 @@ export class NotificationController {
                 id: room
             },
             title: 'Room',
-            type: NotificationType.info
+            type: NotificationType.info,
+            location: NotificationLocation.topright
         };
         NotificationManager.getInstance().show(notification);
     }
@@ -148,7 +149,8 @@ export class NotificationController {
                         id: invite.room
                     },
                     title: 'Room',
-                    type: NotificationType.info
+                    type: NotificationType.info,
+                    location: NotificationLocation.topright
                 };
                 NotificationManager.getInstance().show(notification);
             }
@@ -237,7 +239,8 @@ export class NotificationController {
                         },
                         title: displayMessage.from,
                         type: notificationType,
-                        attachment: attachment
+                        attachment: attachment,
+                        location: NotificationLocation.topright
                     };
                     NotificationManager.getInstance().show(notification);
                     this.sendOSNotification(displayMessage.from, displayMessage.message, displayMessage.priority);
@@ -265,7 +268,8 @@ export class NotificationController {
                     name: FrameworkNotificationSources.CHAT
                 },
                 title: 'Room',
-                type: NotificationType.warning
+                type: NotificationType.warning,
+                location: NotificationLocation.topright
             };
             NotificationManager.getInstance().show(notification);
         }
@@ -283,7 +287,8 @@ export class NotificationController {
                     name: FrameworkNotificationSources.CHAT
                 },
                 title: 'Room',
-                type: NotificationType.warning
+                type: NotificationType.warning,
+                location: NotificationLocation.topright
             };
             NotificationManager.getInstance().show(notification);
         }
@@ -315,7 +320,8 @@ export class NotificationController {
                     name: FrameworkNotificationSources.CHAT
                 },
                 title: 'Offline Messages',
-                type: NotificationType.warning
+                type: NotificationType.warning,
+                location: NotificationLocation.topright
             };
             NotificationManager.getInstance().show(notification);
         }

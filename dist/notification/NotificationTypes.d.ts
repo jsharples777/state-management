@@ -9,6 +9,12 @@ export declare type NotificationSource = {
     name: string;
     id?: string;
 };
+export declare enum NotificationLocation {
+    topright = 0,
+    topleft = 1,
+    bottomleft = 2,
+    bottomright = 3
+}
 export declare type NotificationAttachment = {
     type: string;
     value: any;
@@ -19,6 +25,7 @@ export declare type NotificationContent = {
     id: string;
     type: NotificationType;
     duration: number;
+    location: NotificationLocation;
     removeOnHide?: UndefinedBoolean;
     element?: Node;
     isVisible?: UndefinedBoolean;

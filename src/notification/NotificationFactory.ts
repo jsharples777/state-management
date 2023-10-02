@@ -1,5 +1,6 @@
 import {BootstrapNotification} from "./BootstrapNotification";
 import {NotificationManager} from "./NotificationManager";
+import {NotificationLocation} from "./NotificationTypes";
 
 export class NotificationFactory {
     private static _instance: NotificationFactory;
@@ -14,8 +15,8 @@ export class NotificationFactory {
         return NotificationFactory._instance;
     }
 
-    createNotification(manager: NotificationManager) {
-        return new BootstrapNotification(manager);
+    createNotification(manager: NotificationManager, location:NotificationLocation) {
+        return new BootstrapNotification(manager,location);
     }
 }
 
