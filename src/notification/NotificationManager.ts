@@ -61,7 +61,7 @@ export class NotificationManager {
 
     public show(content:NotificationContent) {
         if (this.isIdInList(content.id)) return;
-        const notification = NotificationFactory.getInstance().createNotification(this,content.location);
+        const notification = NotificationFactory.getInstance().createNotification(this,content.location,content.implType);
         const notificationNode = notification.show(content,this.currentCounts[content.location] * this.offsetPerNotification);
         content.element = notificationNode;
         content.isVisible = UndefinedBoolean.true;

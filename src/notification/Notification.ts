@@ -23,5 +23,5 @@ export abstract class Notification {
     }
 
     // Make the notification visible on the screen
-    public abstract show(content:NotificationContent): HTMLElement;
+    public abstract show(content:NotificationContent, offset: number): HTMLElement;
 }

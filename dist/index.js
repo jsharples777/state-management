@@ -19,7 +19,9 @@ export { OfflineManager } from './network/OfflineManager';
 export { RequestType, queueType } from './network/Types';
 /* notifications */
 export { NotificationManager } from './notification/NotificationManager';
-export { NotificationType, FrameworkNotificationSources } from './notification/NotificationTypes';
+export { NotificationFactory } from './notification/NotificationFactory';
+export { Notification } from './notification/Notification';
+export { NotificationType, FrameworkNotificationSources, NotificationImplType, NotificationLocation } from './notification/NotificationTypes';
 /* Security Manager */
 export { SecurityManager } from './security/SecurityManager';
 export { ChatManager } from './socket/ChatManager';

@@ -6,5 +6,5 @@ export declare abstract class Notification {
     protected id: string;
     protected constructor(notificationManager: NotificationManager, location: NotificationLocation);
     getId(): string;
-    abstract show(content: NotificationContent): HTMLElement;
+    abstract show(content: NotificationContent, offset: number): HTMLElement;
 }

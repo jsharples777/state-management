@@ -59,7 +59,10 @@ export {
 
 /* notifications */
 export {NotificationManager} from './notification/NotificationManager';
-export {NotificationContent,NotificationListener,NotificationAttachmentRenderer,NotificationAttachment,NotificationType,NotificationSource,NotificationCounts,FrameworkNotificationSources} from './notification/NotificationTypes';
+export {NotificationImplFactory} from './notification/NotificationImplFactory';
+export {NotificationFactory} from './notification/NotificationFactory';
+export {Notification} from './notification/Notification';
+export {NotificationContent,NotificationListener,NotificationAttachmentRenderer,NotificationAttachment,NotificationType,NotificationSource,NotificationCounts,FrameworkNotificationSources,NotificationImplType,NotificationLocation} from './notification/NotificationTypes';
 
 /* Security Manager */
 export {SecurityManager} from './security/SecurityManager';

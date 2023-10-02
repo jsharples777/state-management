@@ -15,6 +15,18 @@ export declare enum NotificationLocation {
     bottomleft = 2,
     bottomright = 3
 }
+export declare enum NotificationImplType {
+    standard = 0,
+    custom1 = 1,
+    custom2 = 2,
+    custom3 = 3,
+    custom4 = 4,
+    custom5 = 5,
+    custom6 = 6,
+    custom7 = 7,
+    custom8 = 8,
+    custom9 = 9
+}
 export declare type NotificationAttachment = {
     type: string;
     value: any;
@@ -26,6 +38,7 @@ export declare type NotificationContent = {
     type: NotificationType;
     duration: number;
     location: NotificationLocation;
+    implType?: NotificationImplType;
     removeOnHide?: UndefinedBoolean;
     element?: Node;
     isVisible?: UndefinedBoolean;

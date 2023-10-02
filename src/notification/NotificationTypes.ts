@@ -17,7 +17,19 @@ export enum NotificationLocation {
     topleft,
     bottomleft,
     bottomright
+}
 
+export enum NotificationImplType {
+    standard,
+    custom1,
+    custom2,
+    custom3,
+    custom4,
+    custom5,
+    custom6,
+    custom7,
+    custom8,
+    custom9,
 }
 
 export type NotificationAttachment = {
@@ -32,6 +44,7 @@ export type NotificationContent = {
     type:NotificationType,
     duration:number,
     location:NotificationLocation,
+    implType?:NotificationImplType,
     removeOnHide?:UndefinedBoolean
     element?:Node,
     isVisible?:UndefinedBoolean,
