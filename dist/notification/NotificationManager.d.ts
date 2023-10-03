@@ -5,7 +5,8 @@ export declare class NotificationManager {
     protected notifications: NotificationContent[];
     protected listeners: NotificationListener[];
     protected currentCounts: number[];
-    protected offsetPerNotification: number;
+    protected currentOffset: number[];
+    protected offsetGapPerNotification: number;
     protected containerIds: string[];
     protected attachmentRenderer?: NotificationAttachmentRenderer;
     constructor();

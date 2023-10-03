@@ -7,8 +7,9 @@ export class NotificationManager {
         this.notifications = [];
         this.listeners = [];
         this.currentCounts = [];
+        this.currentOffset = [0, 0, 0, 0];
         this.containerIds = [];
-        this.offsetPerNotification = 120;
+        this.offsetGapPerNotification = 5;
         this.containerIds[NotificationLocation.topright] = 'notifications-top-right';
         this.containerIds[NotificationLocation.topleft] = 'notifications-top-left';
         this.containerIds[NotificationLocation.bottomleft] = 'notifications-bottom-left';
@@ -37,10 +38,11 @@ export class NotificationManager {
         if (this.isIdInList(content.id))
             return;
         const notification = NotificationFactory.getInstance().createNotification(this, content.location, content.implType);
-        const notificationNode = notification.show(content, this.currentCounts[content.location] * this.offsetPerNotification);
+        const notificationNode = notification.show(content, this.currentOffset[content.location]);
         content.element = notificationNode;
         content.isVisible = UndefinedBoolean.true;
         this.currentCounts[content.location]++;
+        this.currentOffset[content.location] += notificationNode.offsetHeight + this.offsetGapPerNotification;
         this.notifications.push(content);
         this.listeners.forEach((listener) => listener.notificationAdded(content));
     }
@@ -49,11 +51,12 @@ export class NotificationManager {
         const containerEl = document.getElementById(this.containerIds[location]);
         if (containerEl) {
             this.currentCounts[location] = 0;
+            this.currentOffset[location] = 0;
             browserUtil.removeAllChildren(containerEl);
             this.notifications.forEach((notification) => {
                 if (notification.location === location) {
                     if (notification.element) {
-                        const offset = this.offsetPerNotification * index;
+                        const offset = this.currentOffset[location];
                         this.currentCounts[location]++;
                         if (includeHidden) {
                             containerEl.appendChild(notification.element);
@@ -69,6 +72,8 @@ export class NotificationManager {
                                     notification.element.style.bottom = `${offset}px`;
                                 }
                             }
+                            // @ts-ignore
+                            this.currentOffset[location] += notification.element.offsetHeight + this.offsetGapPerNotification;
                         }
                         else if (notification.isVisible && notification.isVisible === UndefinedBoolean.true) {
                             containerEl.appendChild(notification.element);
@@ -80,6 +85,8 @@ export class NotificationManager {
                                 // @ts-ignore
                                 notification.element.style.bottom = `${offset}px`;
                             }
+                            // @ts-ignore
+                            this.currentOffset[location] += notification.element.offsetHeight + this.offsetGapPerNotification;
                         }
                         index++;
                     }
